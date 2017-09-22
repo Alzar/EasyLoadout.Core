@@ -46,13 +46,14 @@ namespace LoadoutPlus.Utils {
 			public static bool SniperRifle { get; set; }
 			public static bool HeavySniper { get; set; }
 			public static bool MarksmanRifle { get; set; }
-			//Misc
+			//Other
 			public static bool Nightstick { get; set; }
 			public static bool Taser { get; set; }
 			public static bool Flashlight { get; set; }
 			public static bool Flare { get; set; }
+			public static bool FireExtinguisher { get; set; }
+			//Misc
 			public static bool AttachFlashlightToAll { get; set; }
-			public static bool SmokeGrenadeLauncher { get; set; }
 		}
 	}
 }

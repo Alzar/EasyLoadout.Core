@@ -1,20 +1,19 @@
 ﻿
 
 namespace LoadoutPlus.Utils {
+	using System.Windows.Forms;
 	using Rage;
 	using Rage.Native;
 	using LSPD_First_Response.Mod.API;
 
 	class Core {
 		public static void RunPlugin() {
-			Game.LogTrivial("Running initial loadout give...");
 			GiveLoadout();
-
 			while(true) {
 				GameFiber.Yield();
 
-				if(Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
-					Game.LogTrivial("Keybind Pressed... Giving loadout to player");
+				if(Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout) || Global.Controls.GiveLoadoutModifier == Keys.None && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
+					Game.LogTrivial("[Loadout+]: Keybind Pressed...");
 					GiveLoadout();
 				}
 			}
@@ -23,12 +22,14 @@ namespace LoadoutPlus.Utils {
 		private static void GiveLoadout() {
 			Ped playerPed = Game.LocalPlayer.Character;
 
-			Game.LogTrivial("Starting process to give loadout...");
+			Game.LogTrivial("[Loadout+]: ...Starting Process...");
 
-			Game.LogTrivial("Removing all weapons from player");
+			Game.LogTrivial("[Loadout+]: ...Removing Weapons...");
 			Rage.Native.NativeFunction.Natives.REMOVE_ALL_PED_WEAPONS(playerPed, true);
 
-			Game.LogTrivial("Giving weapons to player depending on setting in LoadoutPlus.ini");
+			Game.LogTrivial("[Loadout+]: ...Processing Loadout...");
+
+			//Pistols
 			if (Global.Loadout.Pistol) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_PISTOL", 10000, false);
 				if(Global.Loadout.AttachFlashlightToAll) {
@@ -59,6 +60,8 @@ namespace LoadoutPlus.Utils {
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_HEAVYPISTOL", "COMPONENT_AT_PI_FLSH");
 				}
 			}
+
+			//SMGs
 			if (Global.Loadout.MicroSMG) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MICROSMG", 10000, false);
 				if (Global.Loadout.AttachFlashlightToAll) {
@@ -80,6 +83,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.TommyGun) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_GUSENBERG", 10000, false);
 			}
+
+			//Shotguns
 			if (Global.Loadout.PumpShotgun) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_PUMPSHOTGUN", 10000, false);
 				if (Global.Loadout.AttachFlashlightToAll) {
@@ -107,12 +112,16 @@ namespace LoadoutPlus.Utils {
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_HEAVYSHOTGUN", "COMPONENT_AT_AR_FLSH");
 				}
 			}
+
+			//LMGs
 			if (Global.Loadout.MG) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MG", 10000, false);
 			}
 			if (Global.Loadout.CombatMG) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_COMBATMG", 10000, false);
 			}
+
+			//Rifles
 			if (Global.Loadout.AssaultRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE", 10000, false);
 				if (Global.Loadout.AssaultRifleAttachments) {
@@ -157,6 +166,8 @@ namespace LoadoutPlus.Utils {
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_AT_SCOPE_SMALL");
 				}
 			}
+
+			//Snipers
 			if (Global.Loadout.SniperRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_SNIPERRIFLE", 10000, false);
 			}
@@ -166,6 +177,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.MarksmanRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MARKSMANRIFLE", 10000, false);
 			}
+			//Other
 			if (Global.Loadout.Nightstick) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_NIGHTSTICK", 1, false);
 			}
@@ -178,8 +190,11 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.Flare) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_FLARE", 50, false);
 			}
+			if (Global.Loadout.FireExtinguisher) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_FIREEXTINGUISHER", 1, false);
+			}
 
-			Game.LogTrivial("Loadout successfully given to player!");
+			Game.LogTrivial("[Loadout+]: ...Success");
 		}
 	}
 }

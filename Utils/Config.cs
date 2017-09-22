@@ -17,7 +17,7 @@ namespace LoadoutPlus.Utils {
 		}
 
 		public static void LoadConfig() {
-			Game.LogTrivial("Loading Config...");
+			Game.LogTrivial("[Loadout+]: Loading Config...");
 			InitializationFile settings = initialiseFile();
 			KeysConverter kc = new KeysConverter();
 
@@ -64,15 +64,16 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.SniperRifle = settings.ReadBoolean("Loadout", "SniperRifle");
 			Global.Loadout.HeavySniper = settings.ReadBoolean("Loadout", "HeavySniper");
 			Global.Loadout.MarksmanRifle = settings.ReadBoolean("Loadout", "MarksmanRifle");
-			//Misc
+			//Other
 			Global.Loadout.Nightstick = settings.ReadBoolean("Loadout", "Nightstick");
 			Global.Loadout.Taser = settings.ReadBoolean("Loadout", "Taser");
 			Global.Loadout.Flashlight = settings.ReadBoolean("Loadout", "Flashlight");
 			Global.Loadout.Flare = settings.ReadBoolean("Loadout", "Flare");
+			Global.Loadout.FireExtinguisher = settings.ReadBoolean("Loadout", "FireExtinguisher");
+			//Misc
 			Global.Loadout.AttachFlashlightToAll = settings.ReadBoolean("Loadout", "AttachFlashlightToAll");
-			Global.Loadout.SmokeGrenadeLauncher = settings.ReadBoolean("Loadout", "SmokeGrenadeLauncher");
 
-			Game.LogTrivial("... Config successfully loaded!");
+			Game.LogTrivial("[Loadout+]: ... Config successfully loaded!");
 		}
 	}
 }
