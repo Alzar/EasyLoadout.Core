@@ -5,6 +5,11 @@ namespace LoadoutPlus.Utils {
 	using System.Windows.Forms;
 
 	internal static class Global {
+		public static class Application {
+			public static float CurrentVersion { get; set; }
+			public static float LatestVersion { get; set; }
+		}
+
 		public static class Controls {
 			public static Keys GiveLoadout { get; set; }
 			public static Keys GiveLoadoutModifier { get; set; }
