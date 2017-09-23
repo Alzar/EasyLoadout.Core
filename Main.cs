@@ -22,8 +22,9 @@ namespace LoadoutPlus{
 				Logger.Log("Plugin up to date, allowing plugin to load");
 				Config.LoadConfig();
 				Game.DisplayNotification("~p~Loadout+ ~s~has been loaded ~g~successfully~s~!");
-				StartPlugin();
 			}
+
+			StartPlugin();
 		}
 
 		private static void StartPlugin() {
