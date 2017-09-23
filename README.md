@@ -1,4 +1,4 @@
-# LoadoutPlus by Alzar
+# Loadout+ by Alzar
 
 LSPDFR Plugin that adds the ability to load a certain loadout when you go on duty aswell as having a button to re-give it to you at any time.
 
