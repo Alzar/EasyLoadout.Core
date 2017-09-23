@@ -17,7 +17,7 @@ namespace LoadoutPlus{
 		public override void Initialize() {
 			Functions.OnOnDutyStateChanged += this.DutyStateChange;
 
-			Global.Application.CurrentVersion = 1.1f;
+			Global.Application.CurrentVersion = 1.2f;
 		}
 
 		public void DutyStateChange(bool OnDuty) {
