@@ -6,6 +6,7 @@ namespace LoadoutPlus{
 	using LoadoutPlus.Utils;
 
     public class Main : Plugin {
+
 		public override void Initialize() {
 			Functions.OnOnDutyStateChanged += this.DutyStateChange;
 
@@ -14,11 +15,11 @@ namespace LoadoutPlus{
 
 		public void DutyStateChange(bool OnDuty) {
 			if (!Updater.CheckUpdate()) {
-				Game.LogTrivial("[Loadout+]: Plugin is out of date, preventing loading! (Current Version: " + Global.Application.CurrentVersion + " | Latest Version: " + Global.Application.LatestVersion);
+				Logger.Log("Plugin is out of date, preventing loading! (Current Version: " + Global.Application.CurrentVersion + " | Latest Version: " + Global.Application.LatestVersion);
 				Game.DisplayNotification("~p~Loadout+ ~s~is out of date! Current Version: ~r~" + Global.Application.CurrentVersion + " ~s~| Latest Version: ~g~" + Global.Application.LatestVersion + "~s~. Please update the plugin!");
 			}
 			else {
-				Game.LogTrivial("[Loadout+]: Plugin up to date, allowing plugin to load");
+				Logger.Log("Plugin up to date, allowing plugin to load");
 				Config.LoadConfig();
 				Game.DisplayNotification("~p~Loadout+ ~s~has been loaded ~g~successfully~s~!");
 				StartPlugin();
@@ -30,7 +31,7 @@ namespace LoadoutPlus{
 		}
 
 		public override void Finally() {
-			Game.LogTrivial("[Loadout+]: Plugin unloaded successfully!");
+			Logger.Log("Plugin unloaded successfully!");
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace LoadoutPlus.Utils {
 				GameFiber.Yield();
 
 				if(Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout) || Global.Controls.GiveLoadoutModifier == Keys.None && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
-					Game.LogTrivial("[Loadout+]: Keybind Pressed...");
 					GiveLoadout();
 				}
 			}
@@ -22,12 +21,10 @@ namespace LoadoutPlus.Utils {
 		private static void GiveLoadout() {
 			Ped playerPed = Game.LocalPlayer.Character;
 
-			Game.LogTrivial("[Loadout+]: ...Starting Process...");
-
-			Game.LogTrivial("[Loadout+]: ...Removing Weapons...");
+			Logger.Log("Removing Weapons...");
 			Rage.Native.NativeFunction.Natives.REMOVE_ALL_PED_WEAPONS(playerPed, true);
 
-			Game.LogTrivial("[Loadout+]: ...Processing Loadout...");
+			Logger.Log("Processing Loadout...");
 
 			//Pistols
 			if (Global.Loadout.Pistol) {
@@ -194,7 +191,8 @@ namespace LoadoutPlus.Utils {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_FIREEXTINGUISHER", 1, false);
 			}
 
-			Game.LogTrivial("[Loadout+]: ...Success");
+			Logger.Log("Loadout Successfully Processed...");
+			Game.DisplayNotification("~p~[Loadout+]: ~s~Loadout Cleared ~g~Successfully~s~!");
 		}
 	}
 }

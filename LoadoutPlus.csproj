@@ -54,6 +54,7 @@
     <Compile Include="Utils\Config.cs" />
     <Compile Include="Utils\Core.cs" />
     <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\Updater.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

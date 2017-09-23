@@ -16,7 +16,7 @@ namespace LoadoutPlus.Utils {
 
 			// Try to get the LatestVersion from a Git file
 			try {
-				response = Web.DownloadStringTaskAsync(new Uri("https://raw.githubusercontent.com/iAlzar/LoadoutPlus/master/latest.txt")).Result;
+				response = Web.DownloadStringTaskAsync(new Uri("https://raw.githubusercontent.com/sr7066/LoadoutPlus/master/latest.txt")).Result;
 			}
 			catch (Exception) {
 				// TODO : ErrorHandling in Updater

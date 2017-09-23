@@ -3,6 +3,7 @@
 namespace LoadoutPlus.Utils {
 	using System.Media;
 	using System.Windows.Forms;
+	using Rage;
 
 	internal static class Global {
 		public static class Application {
