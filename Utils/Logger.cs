@@ -1,4 +1,11 @@
-﻿namespace LoadoutPlus.Utils {
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
+
+namespace LoadoutPlus.Utils {
 	using Rage;
 	internal static class Logger {
 		//ONLY INCLUDE PLUGIN NAME
@@ -6,9 +13,9 @@
 		
 		//Simple log line
 		internal static void Log(string LogLine) {
-			string e = string.Format("[{0}]: {1}", LogPrefix, LogLine);
+			string log = string.Format("[{0}]: {1}", LogPrefix, LogLine);
 
-			Game.LogTrivial(e);
+			Game.LogTrivial(log);
 		}
 	}
 }

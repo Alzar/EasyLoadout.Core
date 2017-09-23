@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
 
 
 namespace LoadoutPlus.Utils {
 	using System.Windows.Forms;
 	using Rage;
 
-	public class Config {
+	internal static class Config {
 
-		public static InitializationFile initialiseFile() {
+		private static InitializationFile initialiseFile() {
 			//InitializationFile is a Rage class.
 			InitializationFile ini = new InitializationFile("Plugins/LSPDFR/LoadoutPlus.ini");
 			ini.Create();
@@ -30,7 +33,7 @@ namespace LoadoutPlus.Utils {
 
 			//Pistols
 			Global.Loadout.Pistol = settings.ReadBoolean("Loadout", "Pistol", false);
-			Global.Loadout.CombatPistol = settings.ReadBoolean("Loadout", "CombatPistol", false);
+			Global.Loadout.CombatPistol = settings.ReadBoolean("Loadout", "CombatPistol", true);
 			Global.Loadout.Pistol50 = settings.ReadBoolean("Loadout", "Pistol50", false);
 			Global.Loadout.APPistol = settings.ReadBoolean("Loadout", "APPistol", false);
 			Global.Loadout.HeavyPistol = settings.ReadBoolean("Loadout", "HeavyPistol", false);
@@ -40,7 +43,7 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.AssaultSMG = settings.ReadBoolean("Loadout", "AssaultSMG", false);
 			Global.Loadout.TommyGun = settings.ReadBoolean("Loadout", "TommyGun", false);
 			//Shotguns
-			Global.Loadout.PumpShotgun = settings.ReadBoolean("Loadout", "PumpShotgun", false);
+			Global.Loadout.PumpShotgun = settings.ReadBoolean("Loadout", "PumpShotgun", true);
 			Global.Loadout.SawedOffShotgun = settings.ReadBoolean("Loadout", "SawedOffShotgun", false);
 			Global.Loadout.AssaultShotgun = settings.ReadBoolean("Loadout", "AssaultShotgun", false);
 			Global.Loadout.BullpupShotgun = settings.ReadBoolean("Loadout", "BullpupShotgun", false);
@@ -64,12 +67,13 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.HeavySniper = settings.ReadBoolean("Loadout", "HeavySniper", false);
 			Global.Loadout.MarksmanRifle = settings.ReadBoolean("Loadout", "MarksmanRifle", false);
 			//Other
-			Global.Loadout.Nightstick = settings.ReadBoolean("Loadout", "Nightstick", false);
-			Global.Loadout.Taser = settings.ReadBoolean("Loadout", "Taser", false);
-			Global.Loadout.Flashlight = settings.ReadBoolean("Loadout", "Flashlight", false);
-			Global.Loadout.Flare = settings.ReadBoolean("Loadout", "Flare", false);
-			Global.Loadout.FireExtinguisher = settings.ReadBoolean("Loadout", "FireExtinguisher", false);
+			Global.Loadout.Nightstick = settings.ReadBoolean("Loadout", "Nightstick", true);
+			Global.Loadout.Taser = settings.ReadBoolean("Loadout", "Taser", true);
+			Global.Loadout.Flashlight = settings.ReadBoolean("Loadout", "Flashlight", true);
+			Global.Loadout.Flare = settings.ReadBoolean("Loadout", "Flare", true);
+			Global.Loadout.FireExtinguisher = settings.ReadBoolean("Loadout", "FireExtinguisher", true);
 			//Misc
+			Global.Loadout.BodyArmor = settings.ReadBoolean("Loadout", "BodyArmor", true);
 			Global.Loadout.AttachFlashlightToAll = settings.ReadBoolean("Loadout", "AttachFlashlightToAll", false);
 		}
 	}

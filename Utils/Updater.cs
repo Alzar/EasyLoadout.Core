@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
 
 namespace LoadoutPlus.Utils {
 	using System;
 	using System.Net;
 
-	class Updater {
+	internal static class Updater {
 		private static readonly WebClient Web = new WebClient();
 
 		public static bool CheckUpdate() {
@@ -40,10 +41,6 @@ namespace LoadoutPlus.Utils {
 			else {
 				return true;
 			}
-		}
-
-		public static float GetCurrentVersion() {
-			return Global.Application.CurrentVersion;
 		}
 	}
 }

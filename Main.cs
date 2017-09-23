@@ -1,4 +1,11 @@
-﻿[assembly: Rage.Attributes.Plugin("Loadout+", Author = "Alzar", Description = "Loads specified loadout when going on duty aswell as having a keybind that you can press to give you the loadout anytime.", SupportUrl = "https://github.com/iAlzar/LoadoutPlus/issues")]
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
+
+[assembly: Rage.Attributes.Plugin("Loadout+", Author = "Alzar", Description = "Loads specified loadout when going on duty aswell as having a keybind that you can press to give you the loadout anytime.", SupportUrl = "https://github.com/iAlzar/LoadoutPlus/issues")]
 
 namespace LoadoutPlus{
 	using Rage;
@@ -10,20 +17,20 @@ namespace LoadoutPlus{
 		public override void Initialize() {
 			Functions.OnOnDutyStateChanged += this.DutyStateChange;
 
-			Global.Application.CurrentVersion = 1.0f;
+			Global.Application.CurrentVersion = 1.1f;
 		}
 
 		public void DutyStateChange(bool OnDuty) {
 			if (!Updater.CheckUpdate()) {
-				Logger.Log("Plugin is out of date, preventing loading! (Current Version: " + Global.Application.CurrentVersion + " | Latest Version: " + Global.Application.LatestVersion);
-				Game.DisplayNotification("~p~Loadout+ ~s~is out of date! Current Version: ~r~" + Global.Application.CurrentVersion + " ~s~| Latest Version: ~g~" + Global.Application.LatestVersion + "~s~. Please update the plugin!");
+				Game.DisplayNotification("~p~[Loadout+]: ~s~Plugin is out of date! (Current Version: ~r~" + Global.Application.CurrentVersion + " ~s~) - (Latest Version: ~g~" + Global.Application.LatestVersion + "~s~) Please update the plugin!");
+				Logger.Log("Plugin is out of date. (Current Version: " + Global.Application.CurrentVersion + ") - (Latest Version: " + Global.Application.LatestVersion + ")");
 			}
 			else {
-				Logger.Log("Plugin up to date, allowing plugin to load");
-				Config.LoadConfig();
-				Game.DisplayNotification("~p~Loadout+ ~s~has been loaded ~g~successfully~s~!");
+				Game.DisplayNotification("~p~[Loadout+]~s~: Plugin loaded ~g~successfully~s~!");
+				Logger.Log("Plugin Version v" + Global.Application.CurrentVersion + " loaded successfully");
 			}
 
+			Config.LoadConfig();
 			StartPlugin();
 		}
 
@@ -32,7 +39,7 @@ namespace LoadoutPlus{
 		}
 
 		public override void Finally() {
-			Logger.Log("Plugin unloaded successfully!");
+			Logger.Log("Plugin unloaded successfully");
 		}
 	}
 }

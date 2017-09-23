@@ -1,4 +1,9 @@
-﻿
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
 
 namespace LoadoutPlus.Utils {
 	using System.Media;
@@ -6,17 +11,17 @@ namespace LoadoutPlus.Utils {
 	using Rage;
 
 	internal static class Global {
-		public static class Application {
+		internal static class Application {
 			public static float CurrentVersion { get; set; }
 			public static float LatestVersion { get; set; }
 		}
 
-		public static class Controls {
+		internal static class Controls {
 			public static Keys GiveLoadout { get; set; }
 			public static Keys GiveLoadoutModifier { get; set; }
 		}
 
-		public static class Loadout {
+		internal static class Loadout {
 			//Pistols
 			public static bool Pistol { get; set; }
 			public static bool CombatPistol { get; set; }
@@ -59,6 +64,7 @@ namespace LoadoutPlus.Utils {
 			public static bool Flare { get; set; }
 			public static bool FireExtinguisher { get; set; }
 			//Misc
+			public static bool BodyArmor { get; set; }
 			public static bool AttachFlashlightToAll { get; set; }
 		}
 	}

@@ -1,4 +1,9 @@
-﻿
+﻿/*
+ *	Developed By: Alzar
+ *	Name: Loadout+
+ *	Dependent: Rage Plugin Hook & LSPDFR
+ *	Released On: GitHub & LSPDFR
+ */
 
 namespace LoadoutPlus.Utils {
 	using System.Windows.Forms;
@@ -6,7 +11,7 @@ namespace LoadoutPlus.Utils {
 	using Rage.Native;
 	using LSPD_First_Response.Mod.API;
 
-	class Core {
+	internal static class Core {
 		public static void RunPlugin() {
 			GiveLoadout();
 			while(true) {
@@ -174,6 +179,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.MarksmanRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MARKSMANRIFLE", 10000, false);
 			}
+
 			//Other
 			if (Global.Loadout.Nightstick) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_NIGHTSTICK", 1, false);
@@ -189,6 +195,11 @@ namespace LoadoutPlus.Utils {
 			}
 			if (Global.Loadout.FireExtinguisher) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_FIREEXTINGUISHER", 1, false);
+			}
+
+			//Misc
+			if (Global.Loadout.BodyArmor) {
+				playerPed.Armor = 100;
 			}
 
 			Logger.Log("Loadout Successfully Processed...");
