@@ -43,6 +43,7 @@ namespace LoadoutPlus.Utils {
 			public static bool MarksmanPistol { get; set; }
 			public static bool HeavyRevolver { get; set; }
 			public static bool MachinePistol { get; set; }
+			public static bool PistolMKII { get; set; }
 
 			//Machine Guns
 			public static bool MicroSMG { get; set; }
@@ -53,6 +54,8 @@ namespace LoadoutPlus.Utils {
 			public static bool CombatMG { get; set; }
 			public static bool CombatPDW { get; set; }
 			public static bool MiniSMG { get; set; }
+			public static bool SMGMKII { get; set; }
+			public static bool CombatMGMKII { get; set; }
 
 			//Shotguns
 			public static bool PumpShotgun { get; set; }
@@ -77,11 +80,16 @@ namespace LoadoutPlus.Utils {
 			public static bool BullpupRifleAttachments { get; set; }
 			public static bool CompactRifle { get; set; }
 			public static bool CompactRifleAttachments { get; set; }
+			public static bool AssaultRifleMKII { get; set; }
+			public static bool AssaultRifleMKIIAttachments { get; set; }
+			public static bool CarbineRifleMKII { get; set; }
+			public static bool CarbineRifleMKIIAttachments { get; set; }
 
 			//Snipers
 			public static bool SniperRifle { get; set; }
 			public static bool HeavySniper { get; set; }
 			public static bool MarksmanRifle { get; set; }
+			public static bool HeavySniperMKII { get; set; }
 
 			//Heavy Weapons
 			public static bool GrenadeLauncher { get; set; }

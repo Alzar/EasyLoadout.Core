@@ -50,7 +50,7 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.VintagePistol = settings.ReadBoolean("Loadout", "VintagePistol", false);
 			Global.Loadout.MarksmanPistol = settings.ReadBoolean("Loadout", "MarksmanPistol", false);
 			Global.Loadout.HeavyRevolver = settings.ReadBoolean("Loadout", "HeavyRevolver", false);
-			Global.Loadout.MachinePistol = settings.ReadBoolean("Loadout", "MachinePistol", false);
+			Global.Loadout.PistolMKII = settings.ReadBoolean("Loadout", "PistolMKII", false);
 
 			//Machine Guns
 			Global.Loadout.MicroSMG = settings.ReadBoolean("Loadout", "MicroSMG", false);
@@ -61,6 +61,9 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.CombatMG = settings.ReadBoolean("Loadout", "CombatMG", false);
 			Global.Loadout.CombatPDW = settings.ReadBoolean("Loadout", "CombatPDW", false);
 			Global.Loadout.MiniSMG = settings.ReadBoolean("Loadout", "MiniSMG", false);
+			Global.Loadout.MachinePistol = settings.ReadBoolean("Loadout", "MachinePistol", false);
+			Global.Loadout.SMGMKII = settings.ReadBoolean("Loadout", "SMGMKII", false);
+			Global.Loadout.CombatMGMKII = settings.ReadBoolean("Loadout", "CombatMGMKII", false);
 
 			//Shotguns
 			Global.Loadout.PumpShotgun = settings.ReadBoolean("Loadout", "PumpShotgun", true);
@@ -70,6 +73,7 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.HeavyShotgun = settings.ReadBoolean("Loadout", "HeavyShotgun", false);
 			Global.Loadout.Musket = settings.ReadBoolean("Loadout", "Musket", false);
 			Global.Loadout.DoubleBarrel = settings.ReadBoolean("Loadout", "DoubleBarrel", false);
+			Global.Loadout.AutoShotgun = settings.ReadBoolean("Loadout", "AutoShotgun", false);
 
 			//Rifles
 			Global.Loadout.AssaultRifle = settings.ReadBoolean("Loadout", "AssaultRifle", false);
@@ -84,11 +88,16 @@ namespace LoadoutPlus.Utils {
 			Global.Loadout.BullpupRifleAttachments = settings.ReadBoolean("Loadout", "BullpupRifleAttachments", false);
 			Global.Loadout.CompactRifle = settings.ReadBoolean("Loadout", "CompactRifle", false);
 			Global.Loadout.CompactRifleAttachments = settings.ReadBoolean("Loadout", "CompactRifleAttachments", false);
+			Global.Loadout.AssaultRifleMKII = settings.ReadBoolean("Loadout", "AssaultRifleMKII", false);
+			Global.Loadout.AssaultRifleMKIIAttachments = settings.ReadBoolean("Loadout", "AssaultRifleMKIIAttachments", false);
+			Global.Loadout.CarbineRifleMKII = settings.ReadBoolean("Loadout", "CarbineRifleMKII", false);
+			Global.Loadout.CarbineRifleMKIIAttachments = settings.ReadBoolean("Loadout", "CarbineRifleMKIIAttachments", false);
 
 			//Snipers
 			Global.Loadout.SniperRifle = settings.ReadBoolean("Loadout", "SniperRifle", false);
 			Global.Loadout.HeavySniper = settings.ReadBoolean("Loadout", "HeavySniper", false);
 			Global.Loadout.MarksmanRifle = settings.ReadBoolean("Loadout", "MarksmanRifle", false);
+			Global.Loadout.HeavySniperMKII = settings.ReadBoolean("Loadout", "HeavySniperMKII", false);
 
 			//Heavy Weapons
 			Global.Loadout.GrenadeLauncher = settings.ReadBoolean("Loadout", "GrenadeLauncher", false);

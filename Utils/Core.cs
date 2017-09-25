@@ -74,6 +74,12 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.HeavyRevolver) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_REVOLVER", Global.LoadoutAmmo.PistolAmmo, false);
 			}
+			if(Global.Loadout.PistolMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_PISTOL_MK2", Global.LoadoutAmmo.PistolAmmo, false);
+				if (Global.Loadout.AttachFlashlightToAll) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_PISTOL_MK2", "COMPONENT_AT_PI_FLSH_02");
+				}
+			}
 
 			//Machine Guns
 			if (Global.Loadout.MicroSMG) {
@@ -115,6 +121,15 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.MachinePistol) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MACHINEPISTOL", Global.LoadoutAmmo.MGAmmo, false);
 			}
+			if (Global.Loadout.SMGMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_SMG_MK2", Global.LoadoutAmmo.MGAmmo, false);
+				if (Global.Loadout.AttachFlashlightToAll) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_SMG_MK2", "COMPONENT_AT_AR_FLSH");
+				}
+			}
+			if (Global.Loadout.CombatMGMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_COMBATMG_MK2", Global.LoadoutAmmo.MGAmmo, false);
+			}
 
 			//Shotguns
 			if (Global.Loadout.PumpShotgun) {
@@ -149,6 +164,9 @@ namespace LoadoutPlus.Utils {
 			}
 			if (Global.Loadout.DoubleBarrel) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_DBSHOTGUN", Global.LoadoutAmmo.ShotgunAmmo, false);
+			}
+			if (Global.Loadout.AutoShotgun) {
+				playerPed.Inventory.GiveNewWeapon(317205821, Global.LoadoutAmmo.ShotgunAmmo, false);
 			}
 
 
@@ -218,6 +236,30 @@ namespace LoadoutPlus.Utils {
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_COMPACTRIFLE", "COMPONENT_COMPACTRIFLE_CLIP_02");
 				}
 			}
+			if (Global.Loadout.AssaultRifleMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
+				if (Global.Loadout.AssaultRifleMKIIAttachments) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_FLSH");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_SCOPE_MEDIUM_MK2");
+				}
+				else if (Global.Loadout.AttachFlashlightToAll) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_FLSH");
+				}
+			}
+			if (Global.Loadout.CarbineRifleMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_CARBINERIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
+				if (Global.Loadout.CarbineRifleMKIIAttachments) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_CARBINERIFLE_MK2_CLIP_02");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_FLSH");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_SCOPE_MEDIUM_MK2");
+				}
+				else if (Global.Loadout.AttachFlashlightToAll) {
+					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_FLSH");
+				}
+			}
 
 			//Snipers
 			if (Global.Loadout.SniperRifle) {
@@ -229,6 +271,9 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.MarksmanRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_MARKSMANRIFLE", Global.LoadoutAmmo.SniperAmmo, false);
 			}
+			if (Global.Loadout.HeavySniperMKII) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_HEAVYSNIPER_MK2", Global.LoadoutAmmo.SniperAmmo, false);
+			}
 
 			//Heavy Weapons
 			if (Global.Loadout.GrenadeLauncher) {
@@ -238,7 +283,7 @@ namespace LoadoutPlus.Utils {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_RPG", Global.LoadoutAmmo.HeavyAmmo, false);
 			}
 			if (Global.Loadout.Minigun) {
-				playerPed.Inventory.GiveNewWeapon("WEAPON_MARKSMANRIFLE", 10000, false);
+				playerPed.Inventory.GiveNewWeapon("WEAPON_MINIGUN", 10000, false);
 			}
 			if (Global.Loadout.FireworkLauncher) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_FIREWORK", Global.LoadoutAmmo.HeavyAmmo, false);
