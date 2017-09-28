@@ -379,7 +379,7 @@ namespace LoadoutPlus.Utils {
 
 			//Other
 			if (Global.Loadout.Taser) {
-				playerPed.Inventory.GiveNewWeapon("WEAPON_STUNGUN", 1, false);
+				playerPed.Inventory.GiveNewWeapon("WEAPON_STUNGUN", 100, false);
 			}
 			if (Global.Loadout.FlareGun) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_FLAREGUN", Global.LoadoutAmmo.ThrowableCount, false);
