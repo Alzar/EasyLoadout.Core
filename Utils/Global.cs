@@ -17,6 +17,8 @@ namespace LoadoutPlus.Utils {
 		}
 
 		internal static class Controls {
+			public static Keys OpenMenu { get; set; }
+			public static Keys OpenMenuModifier { get; set; }
 			public static Keys GiveLoadout { get; set; }
 			public static Keys GiveLoadoutModifier { get; set; }
 		}
@@ -32,6 +34,8 @@ namespace LoadoutPlus.Utils {
 		}
 
 		internal static class Loadout {
+			//Loadout Title
+			public static string LoadoutTitle { get; set; }
 			//Pistols
 			public static bool Pistol { get; set; }
 			public static bool CombatPistol { get; set; }

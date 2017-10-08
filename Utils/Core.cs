@@ -9,17 +9,122 @@ namespace LoadoutPlus.Utils {
 	using System.Windows.Forms;
 	using Rage;
 	using Rage.Native;
+	using RAGENativeUI;
+	using RAGENativeUI.Elements;
 	using LSPD_First_Response.Mod.API;
 
 	internal static class Core {
+		private static string[] loadouts;
+
+		private static MenuPool pMenuPool;
+		private static UIMenu pLoadoutMenu;
+
+		private static UIMenuCheckboxItem pLoadout1;
+		private static UIMenuCheckboxItem pLoadout2;
+		private static UIMenuCheckboxItem pLoadout3;
+		private static UIMenuItem pGiveLoadout;
+
 		public static void RunPlugin() {
+			loadouts = new string[3];
+			//Declaring all loadouts, right now this is statically set to 3. Hopefully will convert this doing being dynamic and be able to have as many as the user would like
+			loadouts[0] = "Plugins/LSPDFR/Loadout+/Configs/Loadout1.ini";
+			loadouts[1] = "Plugins/LSPDFR/Loadout+/Configs/Loadout2.ini";
+			loadouts[2] = "Plugins/LSPDFR/Loadout+/Configs/Loadout3.ini";
+
+			//For the sake of preventing complaints, we're going to just default this to the first loadout. Ideally again having a default load settable in the config ... but for now this works!
+			LoadoutConfig.SetConfigPath(loadouts[0]);
+			LoadoutConfig.LoadConfig();
 			GiveLoadout();
-			while(true) {
+
+			pMenuPool = new MenuPool();
+			pLoadoutMenu = new UIMenu("Loadout+", "Choose your active loadout");
+			pMenuPool.Add(pLoadoutMenu);
+
+			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem("Loadout1", true, "Do you wish to set Loadout1 as the active loadout?"));
+			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem("Loadout2", false, "Do you wish to set Loadout2 as the active loadout?"));
+			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem("Loadout3", false, "Do you wish to set Loadout3 as the active loadout?"));
+			pLoadoutMenu.AddItem(pGiveLoadout = new UIMenuItem("Give Loadout"));
+
+			pLoadoutMenu.RefreshIndex();
+
+			pLoadoutMenu.OnItemSelect += OnItemSelect;
+			pLoadoutMenu.OnCheckboxChange += OnCheckboxChange;
+
+
+			//Game loop
+			while (true) {
 				GameFiber.Yield();
 
-				if(Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout) || Global.Controls.GiveLoadoutModifier == Keys.None && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
+				if (Game.IsKeyDownRightNow(Global.Controls.OpenMenuModifier) && Game.IsKeyDown(Global.Controls.OpenMenu) || Global.Controls.OpenMenuModifier == Keys.None && Game.IsKeyDown(Global.Controls.OpenMenu)) {
+					pLoadoutMenu.Visible = !pLoadoutMenu.Visible;
+				}
+
+				if (Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout) || Global.Controls.GiveLoadoutModifier == Keys.None && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
 					GiveLoadout();
 				}
+
+				pMenuPool.ProcessMenus();
+
+				//Some just useless code that just ensures that the active loadout box is checked.
+				if(LoadoutConfig.GetConfigPath().Equals(loadouts[0])) {
+					pLoadout1.Checked = true;
+					pLoadout2.Checked = false;
+					pLoadout3.Checked = false;
+				}
+				else if (LoadoutConfig.GetConfigPath().Equals(loadouts[1])) {
+					pLoadout2.Checked = true;
+					pLoadout1.Checked = false;
+					pLoadout3.Checked = false;
+				}
+				else {
+					pLoadout3.Checked = true;
+					pLoadout1.Checked = false;
+					pLoadout2.Checked = false;
+				}
+			}
+		}
+
+		public static void OnCheckboxChange(UIMenu sender, UIMenuCheckboxItem checkbox, bool isChecked) {
+			//Ensuring UI that had the update is ours..
+			if (sender == pLoadoutMenu) {
+				//Then we're checking the checkboxes were updated...
+				if (checkbox == pLoadout1) {
+					pLoadout2.Checked = false;
+					pLoadout3.Checked = false;
+					LoadoutConfig.SetConfigPath(loadouts[0]);
+					LoadoutConfig.LoadConfig();
+					Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+				}
+				else if (checkbox == pLoadout2) {
+					pLoadout1.Checked = false;
+					pLoadout3.Checked = false;
+					LoadoutConfig.SetConfigPath(loadouts[1]);
+					LoadoutConfig.LoadConfig();
+					Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+				}
+				else if (checkbox == pLoadout3) {
+					pLoadout1.Checked = false;
+					pLoadout2.Checked = false;
+					LoadoutConfig.SetConfigPath(loadouts[2]);
+					LoadoutConfig.LoadConfig();
+					Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+				}
+				else {
+					return;
+				}
+			}
+			else
+				return;
+		}
+
+		public static void OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index) {
+			if (sender == pLoadoutMenu) {
+				if(selectedItem == pGiveLoadout) {
+					GiveLoadout();
+				}
+			}
+			else {
+				return;
 			}
 		}
 
@@ -174,7 +279,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.AssaultRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AssaultRifleAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_ASSAULTRIFLE_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_ASSAULTRIFLE_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_AT_AR_AFGRIP");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_AT_SCOPE_MACRO");
@@ -186,7 +291,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.CarbineRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_CARBINERIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.CarbineRifleAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_CARBINERIFLE_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_CARBINERIFLE_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_AT_AR_AFGRIP");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_AT_SCOPE_MEDIUM");
@@ -198,7 +303,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.AdvancedRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ADVANCEDRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AdvancedRifleAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", "COMPONENT_ADVANCEDRIFLE_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", "COMPONENT_ADVANCEDRIFLE_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", "COMPONENT_AT_SCOPE_SMALL");
 				}
@@ -209,7 +314,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.SpecialCarbine) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_SPECIALCARBINE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.SpecialCarbineAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_SPECIALCARBINE_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_SPECIALCARBINE_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_AT_AR_AFGRIP");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_AT_SCOPE_MEDIUM");
@@ -221,7 +326,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.BullpupRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_BULLPUPRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.BullpupRifleAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_BULLPUPRIFLE_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_BULLPUPRIFLE_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_AT_AR_AFGRIP");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_AT_SCOPE_SMALL");
@@ -239,7 +344,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.AssaultRifleMKII) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AssaultRifleMKIIAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_SCOPE_MEDIUM_MK2");
@@ -251,7 +356,7 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.CarbineRifleMKII) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_CARBINERIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.CarbineRifleMKIIAttachments) {
-					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_CARBINERIFLE_MK2_CLIP_02");
+					//playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_CARBINERIFLE_MK2_CLIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_FLSH");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_SCOPE_MEDIUM_MK2");
@@ -400,7 +505,7 @@ namespace LoadoutPlus.Utils {
 			}
 
 			Logger.Log("Loadout Successfully Processed...");
-			Game.DisplayNotification("~p~[Loadout+]: ~s~Loadout Cleared ~g~Successfully~s~!");
+			Notifier.Notify(Global.Loadout.LoadoutTitle + " Cleared ~g~Successfully~s~!");
 		}
 	}
 }
