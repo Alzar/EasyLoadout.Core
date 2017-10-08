@@ -30,19 +30,26 @@ namespace LoadoutPlus.Utils {
 			loadouts[0] = "Plugins/LSPDFR/Loadout+/Configs/Loadout1.ini";
 			loadouts[1] = "Plugins/LSPDFR/Loadout+/Configs/Loadout2.ini";
 			loadouts[2] = "Plugins/LSPDFR/Loadout+/Configs/Loadout3.ini";
+		
 
-			//For the sake of preventing complaints, we're going to just default this to the first loadout. Ideally again having a default load settable in the config ... but for now this works!
-			LoadoutConfig.SetConfigPath(loadouts[0]);
-			LoadoutConfig.LoadConfig();
-			GiveLoadout();
-
+			//Initial menu setup
 			pMenuPool = new MenuPool();
 			pLoadoutMenu = new UIMenu("Loadout+", "Choose your active loadout");
 			pMenuPool.Add(pLoadoutMenu);
 
-			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem("Loadout1", true, "Do you wish to set Loadout1 as the active loadout?"));
-			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem("Loadout2", false, "Do you wish to set Loadout2 as the active loadout?"));
-			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem("Loadout3", false, "Do you wish to set Loadout3 as the active loadout?"));
+
+			//Done really badly, but we're setting the items of the menu to have the name that the player sets in the ini file
+			LoadoutConfig.SetConfigPath(loadouts[0]);
+			LoadoutConfig.LoadConfig();
+			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Do you wish to set Loadout1 as the active loadout?"));
+
+			LoadoutConfig.SetConfigPath(loadouts[1]);
+			LoadoutConfig.LoadConfig();
+			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Do you wish to set Loadout2 as the active loadout?"));
+
+			LoadoutConfig.SetConfigPath(loadouts[2]);
+			LoadoutConfig.LoadConfig();
+			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Do you wish to set Loadout3 as the active loadout?"));
 			pLoadoutMenu.AddItem(pGiveLoadout = new UIMenuItem("Give Loadout"));
 
 			pLoadoutMenu.RefreshIndex();
@@ -51,10 +58,20 @@ namespace LoadoutPlus.Utils {
 			pLoadoutMenu.OnCheckboxChange += OnCheckboxChange;
 
 
+			//Resetting back to first loadout config
+			LoadoutConfig.SetConfigPath(loadouts[0]);
+			LoadoutConfig.LoadConfig();
+
+
+			//Initial loadout giving for when player goes on duty
+			GiveLoadout();
+
+
 			//Game loop
 			while (true) {
 				GameFiber.Yield();
 
+				//Checking if keybinds for opening menu is pressed. Currently it doesn't check if any other menu is open, so it can overlap with other RageNativeUI menus.
 				if (Game.IsKeyDownRightNow(Global.Controls.OpenMenuModifier) && Game.IsKeyDown(Global.Controls.OpenMenu) || Global.Controls.OpenMenuModifier == Keys.None && Game.IsKeyDown(Global.Controls.OpenMenu)) {
 					pLoadoutMenu.Visible = !pLoadoutMenu.Visible;
 				}
