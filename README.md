@@ -6,6 +6,7 @@ LSPDFR Plugin that adds the ability to load a certain loadout when you go on dut
 
 * Rage Plugin Hook (Developed and tested on RPH v0.57.1152.13084)
 * LSPD First Response (Developed and test on LSPDFR v0.3.1)
+* RageNativeUI (Developed and tested on RageNatuveUI v1.6.1)
 
 
 ### NOTE FOR MODDERS
