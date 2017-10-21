@@ -267,164 +267,182 @@ namespace LoadoutPlus.Utils {
 		private static void ValidateComponentStrings(int index) {
 			bool IsError = false;
 			switch (index) {
-				case 1:
-					if (Global.Loadout.AssaultRifleExtendedMag) {
-						for (int i = 0; i < AssaultRifleExtendedMags.Length; i++) {
-							if (!Global.Loadout.AssaultRifleExtendedMagString.Equals(AssaultRifleExtendedMags[i]) && i == AssaultRifleExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleExtendedMagString + " for Assault Rifle Extended Mag is invalid, defaulting to COMPONENT_ASSAULTRIFLE_CLIP_02!");
-								Global.Loadout.AssaultRifleExtendedMagString = "COMPONENT_ASSAULTRIFLE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = AssaultRifleExtendedMags.Length + 1;
+			case 1:
+				if (Global.Loadout.AssaultRifleExtendedMag) {
+					for (int i = 0; i < AssaultRifleExtendedMags.Length; i++) {
+						if (Global.Loadout.AssaultRifleExtendedMagString.Equals(AssaultRifleExtendedMags[i]))
+							i = AssaultRifleExtendedMags.Length + 1;
+						else if (!Global.Loadout.AssaultRifleExtendedMagString.Equals(AssaultRifleExtendedMags[i]) && i == AssaultRifleExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AssaultRifleExtendedMagString + " for Assault Rifle Extended Mag is invalid, defaulting to COMPONENT_ASSAULTRIFLE_CLIP_02!");
+							Global.Loadout.AssaultRifleExtendedMagString = "COMPONENT_ASSAULTRIFLE_CLIP_02";
+							IsError = true;
 						}
 					}
+				}
+			break;
+			case 2:
+				if (Global.Loadout.CarbineRifleExtendedMag) {
+					for (int i = 0; i < CarbineRifleExtendedMags.Length; i++) {
+						if (Global.Loadout.CarbineRifleExtendedMagString.Equals(CarbineRifleExtendedMags[i]))
+							i = CarbineRifleExtendedMags.Length + 1;
+						else if (!Global.Loadout.CarbineRifleExtendedMagString.Equals(CarbineRifleExtendedMags[i]) && i == CarbineRifleExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CarbineRifleExtendedMagString + " for Carbine Rifle Extended Mag is invalid, defaulting to COMPONENT_CARBINERIFLE_CLIP_02!");
+							Global.Loadout.CarbineRifleExtendedMagString = "COMPONENT_CARBINERIFLE_CLIP_02";
+							IsError = true;
+						}
+					}
+				}
 				break;
-				case 2:
-					if (Global.Loadout.CarbineRifleExtendedMag) {
-						for (int i = 0; i < CarbineRifleExtendedMags.Length; i++) {
-							if (!Global.Loadout.CarbineRifleExtendedMagString.Equals(CarbineRifleExtendedMags[i]) && i == CarbineRifleExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CarbineRifleExtendedMagString + " for Carbine Rifle Extended Mag is invalid, defaulting to COMPONENT_CARBINERIFLE_CLIP_02!");
-								Global.Loadout.CarbineRifleExtendedMagString = "COMPONENT_CARBINERIFLE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = CarbineRifleExtendedMags.Length + 1;
+			case 3:
+				if (Global.Loadout.AdvancedRifleExtendedMag) {
+					for (int i = 0; i < AdvancedRifleExtendedMags.Length; i++) {
+						if (Global.Loadout.AdvancedRifleExtendedMagString.Equals(AdvancedRifleExtendedMags[i]))
+							i = AdvancedRifleExtendedMags.Length + 1;
+						else if (!Global.Loadout.AdvancedRifleExtendedMagString.Equals(AdvancedRifleExtendedMags[i]) && i == AdvancedRifleExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AdvancedRifleExtendedMagString + " for Advanced Rifle Extended Mag is invalid, defaulting to COMPONENT_ADVANCEDRIFLE_CLIP_02!");
+							Global.Loadout.AdvancedRifleExtendedMagString = "COMPONENT_ADVANCEDRIFLE_CLIP_02";
+							IsError = true;
 						}
 					}
-					break;
-				case 3:
-					if (Global.Loadout.AdvancedRifleExtendedMag) {
-						for (int i = 0; i < AdvancedRifleExtendedMags.Length; i++) {
-							if (!Global.Loadout.AdvancedRifleExtendedMagString.Equals(AdvancedRifleExtendedMags[i]) && i == AdvancedRifleExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AdvancedRifleExtendedMagString + " for Advanced Rifle Extended Mag is invalid, defaulting to COMPONENT_ADVANCEDRIFLE_CLIP_02!");
-								Global.Loadout.AdvancedRifleExtendedMagString = "COMPONENT_ADVANCEDRIFLE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = AdvancedRifleExtendedMags.Length + 1;
+				}
+				break;
+			case 4:
+				if (Global.Loadout.SpecialCarbineExtendedMag) {
+					for (int i = 0; i < SpecialCarbineExtendedMags.Length; i++) {
+						if (Global.Loadout.SpecialCarbineExtendedMagString.Equals(SpecialCarbineExtendedMags[i]))
+							i = SpecialCarbineExtendedMags.Length + 1;
+						else if (!Global.Loadout.SpecialCarbineExtendedMagString.Equals(SpecialCarbineExtendedMags[i]) && i == SpecialCarbineExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.SpecialCarbineExtendedMagString + " for Special Carbine Extended Mag is invalid, defaulting to COMPONENT_SPECIALCARBINE_CLIP_02!");
+							Global.Loadout.SpecialCarbineExtendedMagString = "COMPONENT_SPECIALCARBINE_CLIP_02";
+							IsError = true;
 						}
 					}
-					break;
-				case 4:
-					if (Global.Loadout.SpecialCarbineExtendedMag) {
-						for (int i = 0; i < SpecialCarbineExtendedMags.Length; i++) {
-							if (!Global.Loadout.SpecialCarbineExtendedMagString.Equals(SpecialCarbineExtendedMags[i]) && i == SpecialCarbineExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.SpecialCarbineExtendedMagString + " for Special Carbine Extended Mag is invalid, defaulting to COMPONENT_SPECIALCARBINE_CLIP_02!");
-								Global.Loadout.SpecialCarbineExtendedMagString = "COMPONENT_SPECIALCARBINE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = SpecialCarbineExtendedMags.Length + 1;
+				}
+				break;
+			case 5:
+				if (Global.Loadout.BullpupRifleExtendedMag) {
+					for (int i = 0; i < BullpupRifleExtendedMags.Length; i++) {
+						if (Global.Loadout.BullpupRifleExtendedMagString.Equals(BullpupRifleExtendedMags[i]))
+							i = BullpupRifleExtendedMags.Length + 1;
+						else if (!Global.Loadout.BullpupRifleExtendedMagString.Equals(BullpupRifleExtendedMags[i]) && i == BullpupRifleExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.BullpupRifleExtendedMagString + " for Bullpup Rifle Extended Mag is invalid, defaulting to COMPONENT_BULLPUPRIFLE_CLIP_02!");
+							Global.Loadout.BullpupRifleExtendedMagString = "COMPONENT_BULLPUPRIFLE_CLIP_02";
+							IsError = true;
 						}
 					}
-					break;
-				case 5:
-					if (Global.Loadout.BullpupRifleExtendedMag) {
-						for (int i = 0; i < BullpupRifleExtendedMags.Length; i++) {
-							if (!Global.Loadout.BullpupRifleExtendedMagString.Equals(BullpupRifleExtendedMags[i]) && i == BullpupRifleExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.BullpupRifleExtendedMagString + " for Bullpup Rifle Extended Mag is invalid, defaulting to COMPONENT_BULLPUPRIFLE_CLIP_02!");
-								Global.Loadout.BullpupRifleExtendedMagString = "COMPONENT_BULLPUPRIFLE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = BullpupRifleExtendedMags.Length + 1;
+				}
+				break;
+			case 6:
+				if (Global.Loadout.CompactRifleExtendedMag) {
+					for (int i = 0; i < CompactRifleExtendedMags.Length; i++) {
+						if (Global.Loadout.CompactRifleExtendedMagString.Equals(CompactRifleExtendedMags[i]))
+							i = CompactRifleExtendedMags.Length + 1;
+						else if (!Global.Loadout.CompactRifleExtendedMagString.Equals(CompactRifleExtendedMags[i]) && i == CompactRifleExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CompactRifleExtendedMagString + " for Compact Rifle Extended Mag is invalid, defaulting to COMPONENT_COMPACTRIFLE_CLIP_02!");
+							Global.Loadout.CompactRifleExtendedMagString = "COMPONENT_COMPACTRIFLE_CLIP_02";
+							IsError = true;
 						}
 					}
-					break;
-				case 6:
-					if (Global.Loadout.CompactRifleExtendedMag) {
-						for (int i = 0; i < CompactRifleExtendedMags.Length; i++) {
-							if (!Global.Loadout.CompactRifleExtendedMagString.Equals(CompactRifleExtendedMags[i]) && i == CompactRifleExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CompactRifleExtendedMagString + " for Compact Rifle Extended Mag is invalid, defaulting to COMPONENT_COMPACTRIFLE_CLIP_02!");
-								Global.Loadout.CompactRifleExtendedMagString = "COMPONENT_COMPACTRIFLE_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = CompactRifleExtendedMags.Length + 1;
+				}
+				break;
+			case 7:
+				if (Global.Loadout.AssaultRifleMK2ExtendedMag) {
+					for (int i = 0; i < AssaultRifleMK2ExtendedMags.Length; i++) {
+						if (Global.Loadout.AssaultRifleMK2ExtendedMagString.Equals(AssaultRifleMK2ExtendedMags[i]))
+							i = AssaultRifleMK2ExtendedMags.Length + 1;
+						else if (!Global.Loadout.AssaultRifleMK2ExtendedMagString.Equals(AssaultRifleMK2ExtendedMags[i]) && i == AssaultRifleMK2ExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2ExtendedMagString + " for Assault Rifle MK2 Extended Mag is invalid, defaulting to COMPONENT_ASSAULTRIFLE_MK2_CLIP_02!");
+							Global.Loadout.AssaultRifleMK2ExtendedMagString = "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02";
+							IsError = true;
 						}
 					}
-					break;
-				case 7:
-					if (Global.Loadout.AssaultRifleMK2ExtendedMag) {
-						for (int i = 0; i < AssaultRifleMK2ExtendedMags.Length; i++) {
-							if (!Global.Loadout.AssaultRifleMK2ExtendedMagString.Equals(AssaultRifleMK2ExtendedMags[i]) && i == AssaultRifleMK2ExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2ExtendedMagString + " for Assault Rifle MK2 Extended Mag is invalid, defaulting to COMPONENT_ASSAULTRIFLE_MK2_CLIP_02!");
-								Global.Loadout.AssaultRifleMK2ExtendedMagString = "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = AssaultRifleMK2ExtendedMags.Length + 1;
-						}
-						for (int i = 0; i < AssaultRifleMK2Optics.Length; i++) {
-							if (!Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]) && i == AssaultRifleMK2Optics.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleExtendedMagString + " for Assault Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
-								Global.Loadout.AssaultRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
-								IsError = true;
-							}
-							else
-								i = AssaultRifleMK2Optics.Length + 1;
-						}
-						for (int i = 0; i < AssaultRifleMK2Muzzles.Length; i++) {
-							if (!Global.Loadout.AssaultRifleMK2MuzzleString.Equals(AssaultRifleMK2Muzzles[i]) && i == AssaultRifleMK2Muzzles.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2MuzzleString + " for Assault Rifle MK2 Muzzle is invalid, defaulting to COMPONENT_AT_MUZZLE_01!");
-								Global.Loadout.AssaultRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
-								IsError = true;
-							}
-							else
-								i = AssaultRifleMK2Muzzles.Length + 1;
-						}
-						for (int i = 0; i < AssaultRifleMK2Barrels.Length; i++) {
-							if (!Global.Loadout.AssaultRifleMK2BarrelString.Equals(AssaultRifleMK2Barrels[i]) && i == AssaultRifleMK2Barrels.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2BarrelString + " for Assault Rifle MK2 Barrel is invalid, defaulting to COMPONENT_AT_AR_BARREL_01!");
-								Global.Loadout.AssaultRifleMK2BarrelString = "COMPONENT_AT_AR_BARREL_01";
-								IsError = true;
-							}
-							else
-								i = AssaultRifleMK2Barrels.Length + 1;
+				}
+
+				if (Global.Loadout.AssaultRifleMK2Optic) {
+					for (int i = 0; i < AssaultRifleMK2Optics.Length; i++) {
+						if (Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]))
+							i = AssaultRifleMK2Optics.Length + 1;
+						else if (!Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]) && i == AssaultRifleMK2Optics.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AssaultRifleExtendedMagString + " for Assault Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
+							Global.Loadout.AssaultRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
+							IsError = true;
 						}
 					}
-					break;
-				case 8:
-					if (Global.Loadout.CarbineRifleMK2ExtendedMag) {
-						for (int i = 0; i < CarbineRifleMK2ExtendedMags.Length; i++) {
-							if (!Global.Loadout.CarbineRifleMK2ExtendedMagString.Equals(CarbineRifleMK2ExtendedMags[i]) && i == CarbineRifleMK2ExtendedMags.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2ExtendedMagString + " for Carbine Rifle MK2 Extended Mag is invalid, defaulting to COMPONENT_CARBINERIFLE_MK2_CLIP_02!");
-								Global.Loadout.CarbineRifleMK2ExtendedMagString = "COMPONENT_CARBINERIFLE_MK2_CLIP_02";
-								IsError = true;
-							}
-							else
-								i = CarbineRifleMK2ExtendedMags.Length + 1;
-						}
-						for (int i = 0; i < CarbineRifleMK2Optics.Length; i++) {
-							if (!Global.Loadout.CarbineRifleMK2OpticString.Equals(CarbineRifleMK2Optics[i]) && i == CarbineRifleMK2Optics.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2OpticString + " for Carbine Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
-								Global.Loadout.CarbineRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
-								IsError = true;
-							}
-							else
-								i = CarbineRifleMK2Optics.Length + 1;
-						}
-						for (int i = 0; i < CarbineRifleMK2Muzzles.Length; i++) {
-							if (!Global.Loadout.CarbineRifleMK2MuzzleString.Equals(CarbineRifleMK2Muzzles[i]) && i == CarbineRifleMK2Muzzles.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2MuzzleString + " for Carbine Rifle MK2 Muzzle is invalid, defaulting to COMPONENT_AT_MUZZLE_01!");
-								Global.Loadout.CarbineRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
-								IsError = true;
-							}
-							else
-								i = CarbineRifleMK2Muzzles.Length + 1;
-						}
-						for (int i = 0; i < CarbineRifleMK2Barrels.Length; i++) {
-							if (!Global.Loadout.CarbineRifleMK2BarrelString.Equals(CarbineRifleMK2Barrels[i]) && i == CarbineRifleMK2Barrels.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2BarrelString + " for Carbine Rifle MK2 Barrel is invalid, defaulting to COMPONENT_AT_CR_BARREL_01!");
-								Global.Loadout.CarbineRifleMK2BarrelString = "COMPONENT_AT_CR_BARREL_01";
-								IsError = true;
-							}
-							else
-								i = CarbineRifleMK2Barrels.Length + 1;
+				}
+
+				if (Global.Loadout.AssaultRifleMK2Muzzle) {
+					for (int i = 0; i < AssaultRifleMK2Muzzles.Length; i++) {
+						if (Global.Loadout.AssaultRifleMK2MuzzleString.Equals(AssaultRifleMK2Muzzles[i]))
+							i = AssaultRifleMK2Muzzles.Length + 1;
+						else if (!Global.Loadout.AssaultRifleMK2MuzzleString.Equals(AssaultRifleMK2Muzzles[i]) && i == AssaultRifleMK2Muzzles.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2MuzzleString + " for Assault Rifle MK2 Muzzle is invalid, defaulting to COMPONENT_AT_MUZZLE_01!");
+							Global.Loadout.AssaultRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
+							IsError = true;
 						}
 					}
-					break;
+				}
+
+				if(Global.Loadout.AssaultRifleMK2Barrel) {
+					for (int i = 0; i < AssaultRifleMK2Barrels.Length; i++) {
+						if(Global.Loadout.AssaultRifleMK2BarrelString.Equals(AssaultRifleMK2Barrels[i]))
+							i = AssaultRifleMK2Barrels.Length + 1;
+						else if (!Global.Loadout.AssaultRifleMK2BarrelString.Equals(AssaultRifleMK2Barrels[i]) && i == AssaultRifleMK2Barrels.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2BarrelString + " for Assault Rifle MK2 Barrel is invalid, defaulting to COMPONENT_AT_AR_BARREL_01!");
+							Global.Loadout.AssaultRifleMK2BarrelString = "COMPONENT_AT_AR_BARREL_01";
+							IsError = true;
+						}
+					}
+				}
+				break;
+			case 8:
+				if (Global.Loadout.CarbineRifleMK2ExtendedMag) {
+					for (int i = 0; i < CarbineRifleMK2ExtendedMags.Length; i++) {
+						if (Global.Loadout.CarbineRifleMK2ExtendedMagString.Equals(CarbineRifleMK2ExtendedMags[i]))
+							i = CarbineRifleMK2ExtendedMags.Length + 1;
+						else if (!Global.Loadout.CarbineRifleMK2ExtendedMagString.Equals(CarbineRifleMK2ExtendedMags[i]) && i == CarbineRifleMK2ExtendedMags.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2ExtendedMagString + " for Carbine Rifle MK2 Extended Mag is invalid, defaulting to COMPONENT_CARBINERIFLE_MK2_CLIP_02!");
+							Global.Loadout.CarbineRifleMK2ExtendedMagString = "COMPONENT_CARBINERIFLE_MK2_CLIP_02";
+							IsError = true;
+						}
+					}
+				}
+
+				if (Global.Loadout.CarbineRifleMK2Optic) {
+					for (int i = 0; i < CarbineRifleMK2Optics.Length; i++) {
+						if (Global.Loadout.AssaultRifleExtendedMagString.Equals(CarbineRifleMK2Optics[i]))
+							i = CarbineRifleMK2Optics.Length + 1;
+						else if (!Global.Loadout.CarbineRifleMK2OpticString.Equals(CarbineRifleMK2Optics[i]) && i == CarbineRifleMK2Optics.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2OpticString + " for Carbine Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
+							Global.Loadout.CarbineRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
+							IsError = true;
+						}
+					}
+				}
+
+				if (Global.Loadout.CarbineRifleMK2Muzzle) {
+					for (int i = 0; i < CarbineRifleMK2Muzzles.Length; i++) {
+						if (Global.Loadout.CarbineRifleMK2MuzzleString.Equals(CarbineRifleMK2Muzzles[i]))
+							i = CarbineRifleMK2Muzzles.Length + 1;
+						else if (!Global.Loadout.CarbineRifleMK2MuzzleString.Equals(CarbineRifleMK2Muzzles[i]) && i == CarbineRifleMK2Muzzles.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2MuzzleString + " for Carbine Rifle MK2 Muzzle is invalid, defaulting to COMPONENT_AT_MUZZLE_01!");
+							Global.Loadout.CarbineRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
+							IsError = true;
+						}
+					}
+				}
+
+				if(Global.Loadout.CarbineRifleMK2Barrel) {
+					for (int i = 0; i < CarbineRifleMK2Barrels.Length; i++) {
+						if (Global.Loadout.CarbineRifleMK2BarrelString.Equals(CarbineRifleMK2Barrels[i]))
+							i = CarbineRifleMK2Barrels.Length + 1;
+						else if (!Global.Loadout.CarbineRifleMK2BarrelString.Equals(CarbineRifleMK2Barrels[i]) && i == CarbineRifleMK2Barrels.Length - 1) {
+							Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2BarrelString + " for Carbine Rifle MK2 Barrel is invalid, defaulting to COMPONENT_AT_CR_BARREL_01!");
+							Global.Loadout.CarbineRifleMK2BarrelString = "COMPONENT_AT_CR_BARREL_01";
+							IsError = true;
+						}
+					}
+				}
+				break;
 			}
 			if(IsError) {
 				Notifier.Notify("~r~[ERROR] ~s~There was an error with your weapon component strings, check your logs for exact information!");
