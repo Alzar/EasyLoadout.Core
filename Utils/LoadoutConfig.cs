@@ -275,6 +275,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AssaultRifleExtendedMagString = "COMPONENT_ASSAULTRIFLE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = AssaultRifleExtendedMags.Length + 1;
 						}
 					}
 				break;
@@ -286,6 +288,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CarbineRifleExtendedMagString = "COMPONENT_CARBINERIFLE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = CarbineRifleExtendedMags.Length + 1;
 						}
 					}
 					break;
@@ -297,6 +301,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AdvancedRifleExtendedMagString = "COMPONENT_ADVANCEDRIFLE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = AdvancedRifleExtendedMags.Length + 1;
 						}
 					}
 					break;
@@ -308,6 +314,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.SpecialCarbineExtendedMagString = "COMPONENT_SPECIALCARBINE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = SpecialCarbineExtendedMags.Length + 1;
 						}
 					}
 					break;
@@ -319,6 +327,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.BullpupRifleExtendedMagString = "COMPONENT_BULLPUPRIFLE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = BullpupRifleExtendedMags.Length + 1;
 						}
 					}
 					break;
@@ -330,6 +340,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CompactRifleExtendedMagString = "COMPONENT_COMPACTRIFLE_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = CompactRifleExtendedMags.Length + 1;
 						}
 					}
 					break;
@@ -341,6 +353,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AssaultRifleMK2ExtendedMagString = "COMPONENT_ASSAULTRIFLE_MK2_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = AssaultRifleMK2ExtendedMags.Length + 1;
 						}
 						for (int i = 0; i < AssaultRifleMK2Optics.Length; i++) {
 							if (!Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]) && i == AssaultRifleMK2Optics.Length - 1) {
@@ -348,6 +362,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AssaultRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
 								IsError = true;
 							}
+							else
+								i = AssaultRifleMK2Optics.Length + 1;
 						}
 						for (int i = 0; i < AssaultRifleMK2Muzzles.Length; i++) {
 							if (!Global.Loadout.AssaultRifleMK2MuzzleString.Equals(AssaultRifleMK2Muzzles[i]) && i == AssaultRifleMK2Muzzles.Length - 1) {
@@ -355,6 +371,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AssaultRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
 								IsError = true;
 							}
+							else
+								i = AssaultRifleMK2Muzzles.Length + 1;
 						}
 						for (int i = 0; i < AssaultRifleMK2Barrels.Length; i++) {
 							if (!Global.Loadout.AssaultRifleMK2BarrelString.Equals(AssaultRifleMK2Barrels[i]) && i == AssaultRifleMK2Barrels.Length - 1) {
@@ -362,6 +380,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.AssaultRifleMK2BarrelString = "COMPONENT_AT_AR_BARREL_01";
 								IsError = true;
 							}
+							else
+								i = AssaultRifleMK2Barrels.Length + 1;
 						}
 					}
 					break;
@@ -373,6 +393,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CarbineRifleMK2ExtendedMagString = "COMPONENT_CARBINERIFLE_MK2_CLIP_02";
 								IsError = true;
 							}
+							else
+								i = CarbineRifleMK2ExtendedMags.Length + 1;
 						}
 						for (int i = 0; i < CarbineRifleMK2Optics.Length; i++) {
 							if (!Global.Loadout.CarbineRifleMK2OpticString.Equals(CarbineRifleMK2Optics[i]) && i == CarbineRifleMK2Optics.Length - 1) {
@@ -380,6 +402,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CarbineRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
 								IsError = true;
 							}
+							else
+								i = CarbineRifleMK2Optics.Length + 1;
 						}
 						for (int i = 0; i < CarbineRifleMK2Muzzles.Length; i++) {
 							if (!Global.Loadout.CarbineRifleMK2MuzzleString.Equals(CarbineRifleMK2Muzzles[i]) && i == CarbineRifleMK2Muzzles.Length - 1) {
@@ -387,6 +411,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CarbineRifleMK2MuzzleString = "COMPONENT_AT_MUZZLE_01";
 								IsError = true;
 							}
+							else
+								i = CarbineRifleMK2Muzzles.Length + 1;
 						}
 						for (int i = 0; i < CarbineRifleMK2Barrels.Length; i++) {
 							if (!Global.Loadout.CarbineRifleMK2BarrelString.Equals(CarbineRifleMK2Barrels[i]) && i == CarbineRifleMK2Barrels.Length - 1) {
@@ -394,6 +420,8 @@ namespace LoadoutPlus.Utils {
 								Global.Loadout.CarbineRifleMK2BarrelString = "COMPONENT_AT_CR_BARREL_01";
 								IsError = true;
 							}
+							else
+								i = CarbineRifleMK2Barrels.Length + 1;
 						}
 					}
 					break;
