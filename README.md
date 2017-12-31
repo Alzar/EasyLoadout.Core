@@ -10,7 +10,7 @@ LSPDFR Plugin that adds the ability to load a certain loadout when you go on dut
 
 #### LSPDFR Release
 
-[LSPDFR Release Page](http://www.lcpdfr.com/files/file/17259-loadout/)
+* [LSPDFR Release Page](http://www.lcpdfr.com/files/file/17259-loadout/)
 
 
 ### NOTE FOR MODDERS
