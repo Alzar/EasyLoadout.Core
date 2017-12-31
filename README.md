@@ -8,7 +8,7 @@ LSPDFR Plugin that adds the ability to load a certain loadout when you go on dut
 * LSPD First Response (Developed and test on LSPDFR v0.3.1)
 * RageNativeUI (Developed and tested on RageNatuveUI v1.6.1)
 
-##LSPDFR Release
+#### LSPDFR Release
 
 [LSPDFR Release Page](http://www.lcpdfr.com/files/file/17259-loadout/)
 
