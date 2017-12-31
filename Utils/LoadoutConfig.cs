@@ -45,6 +45,13 @@ namespace LoadoutPlus.Utils {
 			return filePath;
 		}
 
+		//Pretty useless function that we're calling at initialization so we can load config titles for UI reasons
+		public static void LoadConfigTitle() {
+			InitializationFile settings = initialiseFile(filePath);
+			//Title
+			Global.Loadout.LoadoutTitle = settings.ReadString("Loadout", "LoadoutTitle", "Loadout");
+		}
+
 		public static void LoadConfig() {
 			InitializationFile settings = initialiseFile(filePath);
 
@@ -363,7 +370,7 @@ namespace LoadoutPlus.Utils {
 							if (Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]))
 								i = AssaultRifleMK2Optics.Length + 1;
 							else if (!Global.Loadout.AssaultRifleMK2OpticString.Equals(AssaultRifleMK2Optics[i]) && i == AssaultRifleMK2Optics.Length - 1) {
-								Logger.Log("Component String " + Global.Loadout.AssaultRifleExtendedMagString + " for Assault Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
+								Logger.Log("Component String " + Global.Loadout.AssaultRifleMK2OpticString + " for Assault Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");
 								Global.Loadout.AssaultRifleMK2OpticString = "COMPONENT_AT_SCOPE_MACRO_MK2";
 								IsError = true;
 							}
@@ -409,7 +416,7 @@ namespace LoadoutPlus.Utils {
 
 					if (Global.Loadout.CarbineRifleMK2Optic) {
 						for (int i = 0; i < CarbineRifleMK2Optics.Length; i++) {
-							if (Global.Loadout.AssaultRifleExtendedMagString.Equals(CarbineRifleMK2Optics[i]))
+							if (Global.Loadout.CarbineRifleMK2OpticString.Equals(CarbineRifleMK2Optics[i]))
 								i = CarbineRifleMK2Optics.Length + 1;
 							else if (!Global.Loadout.CarbineRifleMK2OpticString.Equals(CarbineRifleMK2Optics[i]) && i == CarbineRifleMK2Optics.Length - 1) {
 								Logger.Log("Component String " + Global.Loadout.CarbineRifleMK2OpticString + " for Carbine Rifle MK2 Optic is invalid, defaulting to COMPONENT_AT_SCOPE_MACRO_MK2!");

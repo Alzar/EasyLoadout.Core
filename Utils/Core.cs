@@ -40,15 +40,15 @@ namespace LoadoutPlus.Utils {
 
 			//Done really badly, but we're setting the items of the menu to have the name that the player sets in the ini file
 			LoadoutConfig.SetConfigPath(loadouts[0]);
-			LoadoutConfig.LoadConfig();
+			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 
 			LoadoutConfig.SetConfigPath(loadouts[1]);
-			LoadoutConfig.LoadConfig();
+			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 
 			LoadoutConfig.SetConfigPath(loadouts[2]);
-			LoadoutConfig.LoadConfig();
+			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 			pLoadoutMenu.AddItem(pGiveLoadout = new UIMenuItem("Give Loadout"));
 
@@ -58,9 +58,22 @@ namespace LoadoutPlus.Utils {
 			pLoadoutMenu.OnCheckboxChange += OnCheckboxChange;
 
 
-			//Resetting back to first loadout config
-			LoadoutConfig.SetConfigPath(loadouts[0]);
+			//Some very basic logic checking for default loadout that we can use right now
+			//Once I add user-defined amounts this will need to be changed
+			if (Global.Application.DefaultLoadout > 3) {
+				Global.Application.DefaultLoadout = 3;
+				Notifier.Notify("~r~[ERROR] ~s~There was an error with your defined default loadout, setting to Loadout 3 as default.");
+				Logger.Log("Your default loadout was set higher than 3, this is invalid, setting to default loadout 3");
+			}
+			else if (Global.Application.DefaultLoadout < 1) {
+				Global.Application.DefaultLoadout = 1;
+				Notifier.Notify("~r~[ERROR] ~s~There was an error with your defined default loadout, setting to Loadout 1 as default.");
+				Logger.Log("Your default loadout was set lower than 1, this is invalid, setting to default loadout 1");
+			}
+
+			LoadoutConfig.SetConfigPath(loadouts[Global.Application.DefaultLoadout - 1]);
 			LoadoutConfig.LoadConfig();
+			UpdateActiveLoadout(Global.Application.DefaultLoadout);
 
 
 			//Initial loadout giving for when player goes on duty

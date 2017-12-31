@@ -14,6 +14,7 @@ namespace LoadoutPlus.Utils {
 		internal static class Application {
 			public static float CurrentVersion { get; set; }
 			public static float LatestVersion { get; set; }
+			public static int DefaultLoadout { get; set; }
 		}
 
 		internal static class Controls {

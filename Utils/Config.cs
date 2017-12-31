@@ -34,6 +34,8 @@ namespace LoadoutPlus.Utils {
 			Global.Controls.GiveLoadout = (Keys)kc.ConvertFromString(glTemp);
 			Global.Controls.GiveLoadoutModifier = (Keys)kc.ConvertFromString(glmTemp);
 
+			Global.Application.DefaultLoadout = settings.ReadInt16("General", "DefaultLoadout", 1);
+
 			//Ammo Count
 			Global.LoadoutAmmo.PistolAmmo = settings.ReadInt16("Ammo", "PistolAmmo", 10000);
 			Global.LoadoutAmmo.MGAmmo = settings.ReadInt16("Ammo", "MGAmmo", 10000);
