@@ -17,7 +17,8 @@ namespace LoadoutPlus{
 		public override void Initialize() {
 			Functions.OnOnDutyStateChanged += this.DutyStateChange;
 
-			Global.Application.CurrentVersion = 1.8f;
+			Global.Application.CurrentVersion = 1.9f;
+			Global.Application.ConfigPath = "Plugins/LSPDFR/Loadout+/Configs/";
 		}
 
 		public void DutyStateChange(bool OnDuty) {

@@ -15,7 +15,6 @@ namespace LoadoutPlus.Utils {
 
 	internal static class Core {
 		private static string[] loadouts;
-
 		private static MenuPool pMenuPool;
 		private static UIMenu pLoadoutMenu;
 
@@ -27,9 +26,9 @@ namespace LoadoutPlus.Utils {
 		public static void RunPlugin() {
 			loadouts = new string[3];
 			//Declaring all loadouts, right now this is statically set to 3. Hopefully will convert this doing being dynamic and be able to have as many as the user would like
-			loadouts[0] = "Plugins/LSPDFR/Loadout+/Configs/Loadout1.ini";
-			loadouts[1] = "Plugins/LSPDFR/Loadout+/Configs/Loadout2.ini";
-			loadouts[2] = "Plugins/LSPDFR/Loadout+/Configs/Loadout3.ini";
+			loadouts[0] = "Loadout1";
+			loadouts[1] = "Loadout2";
+			loadouts[2] = "Loadout3";
 		
 
 			//Initial menu setup
@@ -39,15 +38,15 @@ namespace LoadoutPlus.Utils {
 
 
 			//Done really badly, but we're setting the items of the menu to have the name that the player sets in the ini file
-			LoadoutConfig.SetConfigPath(loadouts[0]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0]);
 			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 
-			LoadoutConfig.SetConfigPath(loadouts[1]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[1]);
 			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 
-			LoadoutConfig.SetConfigPath(loadouts[2]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[2]);
 			LoadoutConfig.LoadConfigTitle();
 			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 			pLoadoutMenu.AddItem(pGiveLoadout = new UIMenuItem("Give Loadout"));
@@ -71,7 +70,7 @@ namespace LoadoutPlus.Utils {
 				Logger.Log("Your default loadout was set lower than 1, this is invalid, setting to default loadout 1");
 			}
 
-			LoadoutConfig.SetConfigPath(loadouts[Global.Application.DefaultLoadout - 1]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[Global.Application.DefaultLoadout - 1]);
 			LoadoutConfig.LoadConfig();
 			UpdateActiveLoadout(Global.Application.DefaultLoadout);
 
@@ -120,7 +119,7 @@ namespace LoadoutPlus.Utils {
 
 		private static void UpdateActiveLoadout(int loadout) {
 			//Setting and loading config file
-			LoadoutConfig.SetConfigPath(loadouts[(loadout - 1)]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout - 1)]);
 			LoadoutConfig.LoadConfig();
 
 			//This is all pretty much visual stuff. We're just updating UI menu text and description aswell as ensuring correct boxes are checked/unchecked
@@ -220,6 +219,15 @@ namespace LoadoutPlus.Utils {
 					playerPed.Inventory.AddComponentToWeapon("WEAPON_PISTOL_MK2", "COMPONENT_AT_PI_FLSH_02");
 				}
 			}
+			if(Global.Loadout.SNSPistolMK2) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_SNSPISTOL_MK2", Global.LoadoutAmmo.PistolAmmo, false);
+			}
+			if (Global.Loadout.HeavyRevolverMK2) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_REVOLVER_MK2", Global.LoadoutAmmo.PistolAmmo, false);
+			}
+			if (Global.Loadout.DoubleActionRevolver) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_DOUBLEACTION", Global.LoadoutAmmo.PistolAmmo, false);
+			}
 
 			//Machine Guns
 			if (Global.Loadout.MicroSMG) {
@@ -314,8 +322,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.AssaultRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AssaultRifleAttachments) {
-					if (Global.Loadout.AssaultRifleExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", Global.Loadout.AssaultRifleExtendedMagString);
+					if (Global.Loadout.AssaultRifleMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", Global.Loadout.AssaultRifleMagazineString);
 					if (Global.Loadout.Flashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.AssaultRifleGrip)
@@ -329,8 +337,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.CarbineRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_CARBINERIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.CarbineRifleAttachments) {
-					if (Global.Loadout.CarbineRifleExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", Global.Loadout.CarbineRifleExtendedMagString);
+					if (Global.Loadout.CarbineRifleMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", Global.Loadout.CarbineRifleMagazineString);
 					if (Global.Loadout.CarbineRifleFlashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.CarbineRifleGrip)
@@ -344,8 +352,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.AdvancedRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ADVANCEDRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AdvancedRifleAttachments) {
-					if (Global.Loadout.AdvancedRifleExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", Global.Loadout.AdvancedRifleExtendedMagString);
+					if (Global.Loadout.AdvancedRifleMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", Global.Loadout.AdvancedRifleMagazineString);
 					if (Global.Loadout.AdvancedRifleFlashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_ADVANCEDRIFLE", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.AdvancedRifleOptic)
@@ -357,8 +365,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.SpecialCarbine) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_SPECIALCARBINE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.SpecialCarbineAttachments) {
-					if (Global.Loadout.SpecialCarbineExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", Global.Loadout.SpecialCarbineExtendedMagString);
+					if (Global.Loadout.SpecialCarbineMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", Global.Loadout.SpecialCarbineMagazineString);
 					if (Global.Loadout.SpecialCarbineFlashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.SpecialCarbineGrip)
@@ -372,8 +380,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.BullpupRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_BULLPUPRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.BullpupRifleAttachments) {
-					if(Global.Loadout.BullpupRifleExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", Global.Loadout.BullpupRifleExtendedMagString);
+					if(Global.Loadout.BullpupRifleMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", Global.Loadout.BullpupRifleMagazineString);
 					if (Global.Loadout.BullpupRifleFlashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.BullpupRifleGrip)
@@ -387,15 +395,15 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.CompactRifle) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_COMPACTRIFLE", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.CompactRifleAttachments) {
-					if (Global.Loadout.CompactRifleExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_COMPACTRIFLE", Global.Loadout.CompactRifleExtendedMagString);
+					if (Global.Loadout.CompactRifleMagazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_COMPACTRIFLE", Global.Loadout.CompactRifleMagazineString);
 				}
 			}
 			if (Global.Loadout.AssaultRifleMK2) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_ASSAULTRIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.AssaultRifleMK2Attachments) {
-					if (Global.Loadout.AssaultRifleMK2ExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", Global.Loadout.AssaultRifleMK2ExtendedMagString);
+					if (Global.Loadout.AssaultRifleMK2Magazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", Global.Loadout.AssaultRifleMK2MagazineString);
 					if (Global.Loadout.AssaultRifleMK2Flashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_ASSAULTRIFLE_MK2", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.AssaultRifleMK2Grip)
@@ -411,8 +419,8 @@ namespace LoadoutPlus.Utils {
 			if (Global.Loadout.CarbineRifleMK2) {
 				playerPed.Inventory.GiveNewWeapon("WEAPON_CARBINERIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
 				if (Global.Loadout.CarbineRifleMK2Attachments) {
-					if (Global.Loadout.CarbineRifleMK2ExtendedMag)
-						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", Global.Loadout.CarbineRifleMK2ExtendedMagString);
+					if (Global.Loadout.CarbineRifleMK2Magazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", Global.Loadout.CarbineRifleMK2MagazineString);
 					if (Global.Loadout.CarbineRifleMK2Flashlight)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", "COMPONENT_AT_AR_FLSH");
 					if (Global.Loadout.CarbineRifleMK2Grip)
@@ -423,6 +431,53 @@ namespace LoadoutPlus.Utils {
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", Global.Loadout.CarbineRifleMK2MuzzleString);
 					if (Global.Loadout.CarbineRifleMK2Barrel)
 						playerPed.Inventory.AddComponentToWeapon("WEAPON_CARBINERIFLE_MK2", Global.Loadout.CarbineRifleMK2BarrelString);
+				}
+			}
+			if (Global.Loadout.SpecialCarbineMK2) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_SPECIALCARBINE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
+				if (Global.Loadout.SpecialCarbineMK2Attachments) {
+					if (Global.Loadout.SpecialCarbineMK2Magazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", Global.Loadout.SpecialCarbineMK2MagazineString);
+					if (Global.Loadout.SpecialCarbineMK2Flashlight)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", "COMPONENT_AT_AR_FLSH");
+					if (Global.Loadout.SpecialCarbineMK2Grip)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
+					if (Global.Loadout.SpecialCarbineMK2Optic)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", Global.Loadout.SpecialCarbineMK2OpticString);
+					if (Global.Loadout.SpecialCarbineMK2Muzzle)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", Global.Loadout.SpecialCarbineMK2MuzzleString);
+					if (Global.Loadout.SpecialCarbineMK2Barrel)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_SPECIALCARBINE_MK2", Global.Loadout.SpecialCarbineMK2BarrelString);
+				}
+			}
+			if (Global.Loadout.BullpupRifleMK2) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_BULLPUPRIFLE_MK2", Global.LoadoutAmmo.RifleAmmo, false);
+				if (Global.Loadout.BullpupRifleMK2Attachments) {
+					if (Global.Loadout.BullpupRifleMK2Magazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", Global.Loadout.BullpupRifleMK2MagazineString);
+					if (Global.Loadout.BullpupRifleMK2Flashlight)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", "COMPONENT_AT_AR_FLSH");
+					if (Global.Loadout.BullpupRifleMK2Grip)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", "COMPONENT_AT_AR_AFGRIP_02");
+					if (Global.Loadout.BullpupRifleMK2Optic)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", Global.Loadout.BullpupRifleMK2OpticString);
+					if (Global.Loadout.BullpupRifleMK2Muzzle)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", Global.Loadout.BullpupRifleMK2MuzzleString);
+					if (Global.Loadout.BullpupRifleMK2Barrel)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_BULLPUPRIFLE_MK2", Global.Loadout.BullpupRifleMK2BarrelString);
+				}
+			}
+			if (Global.Loadout.PumpShotgunMK2) {
+				playerPed.Inventory.GiveNewWeapon("WEAPON_PUMPSHOTGUN_MK2", Global.LoadoutAmmo.RifleAmmo, false);
+				if (Global.Loadout.PumpShotgunMK2Attachments) {
+					if (Global.Loadout.PumpShotgunMK2Magazine)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_PUMPSHOTGUN_MK2", Global.Loadout.PumpShotgunMK2MagazineString);
+					if (Global.Loadout.PumpShotgunMK2Flashlight)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_PUMPSHOTGUN_MK2", "COMPONENT_AT_AR_FLSH");
+					if (Global.Loadout.PumpShotgunMK2Optic)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_PUMPSHOTGUN_MK2", Global.Loadout.PumpShotgunMK2OpticString);
+					if (Global.Loadout.PumpShotgunMK2Muzzle)
+						playerPed.Inventory.AddComponentToWeapon("WEAPON_PUMPSHOTGUN_MK2", Global.Loadout.PumpShotgunMK2MuzzleString);
 				}
 			}
 

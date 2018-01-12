@@ -15,6 +15,7 @@ namespace LoadoutPlus.Utils {
 			public static float CurrentVersion { get; set; }
 			public static float LatestVersion { get; set; }
 			public static int DefaultLoadout { get; set; }
+			public static string ConfigPath { get; set; }
 		}
 
 		internal static class Controls {
@@ -50,6 +51,9 @@ namespace LoadoutPlus.Utils {
 			public static bool HeavyRevolver { get; set; }
 			public static bool MachinePistol { get; set; }
 			public static bool PistolMK2 { get; set; }
+			public static bool SNSPistolMK2 { get; set; }
+			public static bool HeavyRevolverMK2 { get; set; }
+			public static bool DoubleActionRevolver { get; set; }
 
 			//Machine Guns
 			public static bool MicroSMG { get; set; }
@@ -72,6 +76,7 @@ namespace LoadoutPlus.Utils {
 			public static bool Musket { get; set; }
 			public static bool DoubleBarrel { get; set; }
 			public static bool AutoShotgun { get; set; }
+			public static bool PumpShotgunMK2 { get; set; }
 
 			//Rifles
 			public static bool AssaultRifle { get; set; }
@@ -82,6 +87,8 @@ namespace LoadoutPlus.Utils {
 			public static bool CompactRifle { get; set; }
 			public static bool AssaultRifleMK2 { get; set; }
 			public static bool CarbineRifleMK2 { get; set; }
+			public static bool SpecialCarbineMK2 { get; set; }
+			public static bool BullpupRifleMK2 { get; set; }
 
 			//Attachments
 			public static bool AssaultRifleAttachments { get; set; }
@@ -92,72 +99,107 @@ namespace LoadoutPlus.Utils {
 			public static bool CompactRifleAttachments { get; set; }
 			public static bool AssaultRifleMK2Attachments { get; set; }
 			public static bool CarbineRifleMK2Attachments { get; set; }
+			public static bool SpecialCarbineMK2Attachments { get; set; }
+			public static bool BullpupRifleMK2Attachments { get; set; }
+			public static bool PumpShotgunMK2Attachments { get; set; }
 
 			//Rifle Attachments
-			public static bool AssaultRifleExtendedMag { get; set; }
-			public static string AssaultRifleExtendedMagString { get; set; }
+			public static bool AssaultRifleMagazine { get; set; }
+			public static string AssaultRifleMagazineString { get; set; }
 			public static bool AssaultRifleGrip { get; set; }
 			public static bool AssaultRifleOptic { get; set; }
 			public static bool AssaultRifleFlashlight { get; set; }
 			public static bool AssaultRifleMuzzle { get; set; }
 
-			public static bool CarbineRifleExtendedMag { get; set; }
-			public static string CarbineRifleExtendedMagString { get; set; }
+			public static bool CarbineRifleMagazine { get; set; }
+			public static string CarbineRifleMagazineString { get; set; }
 			public static bool CarbineRifleGrip { get; set; }
 			public static bool CarbineRifleOptic { get; set; }
 			public static bool CarbineRifleFlashlight { get; set; }
 			public static bool CarbineRifleMuzzle { get; set; }
 
-			public static bool AdvancedRifleExtendedMag { get; set; }
-			public static string AdvancedRifleExtendedMagString { get; set; }
+			public static bool AdvancedRifleMagazine { get; set; }
+			public static string AdvancedRifleMagazineString { get; set; }
 			public static bool AdvancedRifleOptic { get; set; }
 			public static bool AdvancedRifleFlashlight { get; set; }
 			public static bool AdvancedRifleMuzzle { get; set; }
 
-			public static bool SpecialCarbineExtendedMag { get; set; }
-			public static string SpecialCarbineExtendedMagString { get; set; }
+			public static bool SpecialCarbineMagazine { get; set; }
+			public static string SpecialCarbineMagazineString { get; set; }
 			public static bool SpecialCarbineGrip { get; set; }
 			public static bool SpecialCarbineOptic { get; set; }
 			public static bool SpecialCarbineFlashlight { get; set; }
 			public static bool SpecialCarbineMuzzle { get; set; }
 
-			public static bool BullpupRifleExtendedMag { get; set; }
-			public static string BullpupRifleExtendedMagString { get; set; }
+			public static bool BullpupRifleMagazine { get; set; }
+			public static string BullpupRifleMagazineString { get; set; }
 			public static bool BullpupRifleGrip { get; set; }
 			public static bool BullpupRifleOptic { get; set; }
 			public static bool BullpupRifleFlashlight { get; set; }
 			public static bool BullpupRifleMuzzle { get; set; }
 
-			public static bool CompactRifleExtendedMag { get; set; }
-			public static string CompactRifleExtendedMagString { get; set; }
+			public static bool CompactRifleMagazine { get; set; }
+			public static string CompactRifleMagazineString { get; set; }
 
-			public static bool AssaultRifleMK2ExtendedMag { get; set; }
+			public static bool AssaultRifleMK2Magazine { get; set; }
 			public static bool AssaultRifleMK2Grip { get; set; }
 			public static bool AssaultRifleMK2Optic { get; set; }
 			public static bool AssaultRifleMK2Flashlight { get; set; }
 			public static bool AssaultRifleMK2Barrel { get; set; }
 			public static bool AssaultRifleMK2Muzzle { get; set; }
-			public static string AssaultRifleMK2ExtendedMagString { get; set; }
+			public static string AssaultRifleMK2MagazineString { get; set; }
 			public static string AssaultRifleMK2OpticString { get; set; }
 			public static string AssaultRifleMK2BarrelString { get; set; }
 			public static string AssaultRifleMK2MuzzleString { get; set; }
 
-			public static bool CarbineRifleMK2ExtendedMag { get; set; }
+			public static bool CarbineRifleMK2Magazine { get; set; }
 			public static bool CarbineRifleMK2Grip { get; set; }
 			public static bool CarbineRifleMK2Optic { get; set; }
 			public static bool CarbineRifleMK2Flashlight { get; set; }
 			public static bool CarbineRifleMK2Barrel { get; set; }
 			public static bool CarbineRifleMK2Muzzle { get; set; }
-			public static string CarbineRifleMK2ExtendedMagString { get; set; }
+			public static string CarbineRifleMK2MagazineString { get; set; }
 			public static string CarbineRifleMK2OpticString { get; set; }
 			public static string CarbineRifleMK2BarrelString { get; set; }
 			public static string CarbineRifleMK2MuzzleString { get; set; }
+
+			public static bool SpecialCarbineMK2Magazine { get; set; }
+			public static bool SpecialCarbineMK2Grip { get; set; }
+			public static bool SpecialCarbineMK2Optic { get; set; }
+			public static bool SpecialCarbineMK2Flashlight { get; set; }
+			public static bool SpecialCarbineMK2Barrel { get; set; }
+			public static bool SpecialCarbineMK2Muzzle { get; set; }
+			public static string SpecialCarbineMK2MagazineString { get; set; }
+			public static string SpecialCarbineMK2OpticString { get; set; }
+			public static string SpecialCarbineMK2BarrelString { get; set; }
+			public static string SpecialCarbineMK2MuzzleString { get; set; }
+
+			public static bool BullpupRifleMK2Magazine { get; set; }
+			public static bool BullpupRifleMK2Grip { get; set; }
+			public static bool BullpupRifleMK2Optic { get; set; }
+			public static bool BullpupRifleMK2Flashlight { get; set; }
+			public static bool BullpupRifleMK2Barrel { get; set; }
+			public static bool BullpupRifleMK2Muzzle { get; set; }
+			public static string BullpupRifleMK2MagazineString { get; set; }
+			public static string BullpupRifleMK2OpticString { get; set; }
+			public static string BullpupRifleMK2BarrelString { get; set; }
+			public static string BullpupRifleMK2MuzzleString { get; set; }
+
+			public static bool PumpShotgunMK2Magazine { get; set; }
+			public static bool PumpShotgunMK2Optic { get; set; }
+			public static bool PumpShotgunMK2Flashlight { get; set; }
+			public static bool PumpShotgunMK2Muzzle { get; set; }
+			public static string PumpShotgunMK2MagazineString { get; set; }
+			public static string PumpShotgunMK2OpticString { get; set; }
+			public static string PumpShotgunMK2MuzzleString { get; set; }
+
 
 			//Snipers
 			public static bool SniperRifle { get; set; }
 			public static bool HeavySniper { get; set; }
 			public static bool MarksmanRifle { get; set; }
 			public static bool HeavySniperMK2 { get; set; }
+			public static bool MarksmanRifleMK2 { get; set; }
 
 			//Heavy Weapons
 			public static bool GrenadeLauncher { get; set; }

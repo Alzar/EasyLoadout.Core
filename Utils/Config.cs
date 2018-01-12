@@ -19,7 +19,7 @@ namespace LoadoutPlus.Utils {
 		}
 
 		public static void LoadConfig() {
-			InitializationFile settings = initialiseFile("Plugins/LSPDFR/Loadout+/Configs/LoadoutPlus.ini");
+			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "LoadoutPlus.ini");
 			KeysConverter kc = new KeysConverter();
 
 			string opTemp, opmTemp, glTemp, glmTemp;
