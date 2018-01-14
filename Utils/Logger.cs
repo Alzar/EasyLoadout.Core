@@ -1,15 +1,15 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using Rage;
 	internal static class Logger {
 		//ONLY INCLUDE PLUGIN NAME
-		private const string LogPrefix = "Loadout+";
+		private const string LogPrefix = "Easy Loadout";
 		
 		//Simple log line
 		internal static void Log(string LogLine) {

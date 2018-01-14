@@ -1,19 +1,19 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using System.Media;
 	using System.Windows.Forms;
 	using Rage;
 
 	internal static class Global {
 		internal static class Application {
-			public static float CurrentVersion { get; set; }
-			public static float LatestVersion { get; set; }
+			public static string CurrentVersion { get; set; }
+			public static string LatestVersion { get; set; }
 			public static int DefaultLoadout { get; set; }
 			public static string ConfigPath { get; set; }
 		}

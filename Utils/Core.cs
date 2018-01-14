@@ -1,11 +1,11 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using System.Windows.Forms;
 	using Rage;
 	using Rage.Native;
@@ -33,7 +33,7 @@ namespace LoadoutPlus.Utils {
 
 			//Initial menu setup
 			pMenuPool = new MenuPool();
-			pLoadoutMenu = new UIMenu("Loadout+", "Choose your active loadout");
+			pLoadoutMenu = new UIMenu("EasyLoadout", "Choose your active loadout");
 			pMenuPool.Add(pLoadoutMenu);
 
 

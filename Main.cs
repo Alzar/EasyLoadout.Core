@@ -1,24 +1,24 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
-[assembly: Rage.Attributes.Plugin("Loadout+", Author = "Alzar", Description = "Loads specified loadout when going on duty aswell as having a keybind that you can press to give you the loadout anytime.", SupportUrl = "https://github.com/iAlzar/LoadoutPlus/issues")]
+[assembly: Rage.Attributes.Plugin("Easy Loadout", Author = "sr7066", Description = "Loads specified loadout when going on duty aswell as having a keybind that you can press to give you the loadout anytime.", SupportUrl = "https://github.com/iAlzar/EasyLoadout/issues")]
 
-namespace LoadoutPlus{
+namespace EasyLoadout{
 	using Rage;
+	using System;
 	using LSPD_First_Response.Mod.API;
-	using LoadoutPlus.Utils;
+	using EasyLoadout.Utils;
 
     public class Main : Plugin {
 
 		public override void Initialize() {
 			Functions.OnOnDutyStateChanged += this.DutyStateChange;
-
-			Global.Application.CurrentVersion = 1.9f;
-			Global.Application.ConfigPath = "Plugins/LSPDFR/Loadout+/Configs/";
+			Global.Application.CurrentVersion = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+			Global.Application.ConfigPath = "Plugins/LSPDFR/EasyLoadout/Configs/";
 		}
 
 		public void DutyStateChange(bool OnDuty) {

@@ -1,11 +1,11 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using System;
 	using System.Net;
 
@@ -16,10 +16,10 @@ namespace LoadoutPlus.Utils {
 			string response = null;
 
 			try {
-				response = wc.DownloadStringTaskAsync(new Uri("https://raw.githubusercontent.com/sr7066/LoadoutPlus/master/latest.txt")).Result;
+				response = wc.DownloadStringTaskAsync(new Uri("https://raw.githubusercontent.com/sr7066/EasyLoadout/master/latest.txt")).Result;
 			}
 			catch (Exception) {
-				// TODO
+				/// TODO
 			}
 
 			//If we get a null respone then the download failed and we just return false
@@ -27,13 +27,17 @@ namespace LoadoutPlus.Utils {
 				return false;
 			}
 
-			//Got a valid response, parsing into float
-			if (float.TryParse(response, out float result)) {
-				Global.Application.LatestVersion = result;
-			}
+			Global.Application.LatestVersion = response;
 
-			//Current Version doesn't match latest version, return false
-			if (Global.Application.CurrentVersion != Global.Application.LatestVersion) {
+			Version current = new Version(Global.Application.CurrentVersion);
+			Version latest = new Version(Global.Application.LatestVersion);
+
+			//Current is somehow being reported as higher than latest, this isn't correct so we'll display an error to be safe
+			if (current.CompareTo(latest) > 0) {
+				return false;
+			}
+			//Latest is greater than current, return false to warn user that there is an update available
+			else if(current.CompareTo(latest) < 0) {
 				return false;
 			}
 			//Current version matches latest, return true

@@ -1,12 +1,12 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using System.Windows.Forms;
 	using Rage;
 

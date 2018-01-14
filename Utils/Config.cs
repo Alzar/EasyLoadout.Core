@@ -1,12 +1,12 @@
 ﻿/*
  *	Developed By: Alzar
- *	Name: Loadout+
+ *	Name: Easy Loadout
  *	Dependent: Rage Plugin Hook & LSPDFR
  *	Released On: GitHub & LSPDFR
  */
 
 
-namespace LoadoutPlus.Utils {
+namespace EasyLoadout.Utils {
 	using System.Windows.Forms;
 	using Rage;
 
@@ -19,7 +19,7 @@ namespace LoadoutPlus.Utils {
 		}
 
 		public static void LoadConfig() {
-			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "LoadoutPlus.ini");
+			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "EasyLoadout.ini");
 			KeysConverter kc = new KeysConverter();
 
 			string opTemp, opmTemp, glTemp, glmTemp;
