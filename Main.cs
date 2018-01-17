@@ -22,14 +22,15 @@ namespace EasyLoadout{
 		}
 
 		public void DutyStateChange(bool OnDuty) {
-			if (Updater.CheckUpdate() == -1) {
+			int versionStatus = Updater.CheckUpdate();
+			if (versionStatus == -1) {
 				Notifier.Notify("Plugin is out of date! (Current Version: ~r~" + Global.Application.CurrentVersion + " ~s~) - (Latest Version: ~g~" + Global.Application.LatestVersion + "~s~) Please update the plugin!");
 				Logger.Log("Plugin is out of date. (Current Version: " + Global.Application.CurrentVersion + ") - (Latest Version: " + Global.Application.LatestVersion + ")");
 			}
-			else if(Updater.CheckUpdate() == -2) {
+			else if(versionStatus == -2) {
 				Logger.Log("There was an issue checking plugin versions, the plugin may be out of date!");
 			}
-			else if (Updater.CheckUpdate() == 1) {
+			else if (versionStatus == 1) {
 				Logger.Log("Current version of plugin is higher than the version reported on the official GitHub, this could be an error that you may want to report!");
 			}
 			else {
