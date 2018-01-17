@@ -35,7 +35,7 @@ namespace EasyLoadout.Utils {
 			for (int i = 0; i < Global.Application.LoadoutCount; i++) {
 				loadouts.Add(new LoadoutData("Loadout" + (i + 1), Config.GetConfigFile(i + 1)));
 
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[i].GetConfig());
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[i].LoadoutConfig);
 				LoadoutConfig.LoadConfigTitle();
 				pLoadouts.Add(new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 				pLoadoutMenu.AddItem(pLoadouts[i]);
@@ -46,21 +46,17 @@ namespace EasyLoadout.Utils {
 			pLoadoutMenu.OnItemSelect += OnItemSelect;
 			pLoadoutMenu.OnCheckboxChange += OnCheckboxChange;
 
-			for (int i = 0; i < Global.Application.LoadoutCount; i++) {
-				Logger.Log(loadouts[i].GetNumber() + "	" + loadouts[i].GetConfig());
-			}
-
 			//Error checking for default loadout, this should allow us to ensure that if an invalid loadout is chosen then it'll default to the first loadout config
 			for (int i = 0; i <= Global.Application.LoadoutCount; i++) {
 			if (i == Global.Application.LoadoutCount) {
-				Logger.Log(Global.Application.DefaultLoadout.GetNumber() + " Is Not A Valid Loadout. Defaulting to " + loadouts[0].GetNumber() + " as default.");
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0].GetConfig());
+				Logger.Log(Global.Application.DefaultLoadout.LoadoutNumber + " Is Not A Valid Loadout. Defaulting to " + loadouts[0].LoadoutNumber + " as default.");
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0].LoadoutConfig);
 				LoadoutConfig.LoadConfig();
 				UpdateActiveLoadout(0);
 			}
-			else if (Global.Application.DefaultLoadout.GetNumber().Equals(loadouts[i].GetNumber())) {
-				Logger.Log(Global.Application.DefaultLoadout.GetNumber() + " Is A Valid Loadout, Setting It To Load By Default.");
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + Global.Application.DefaultLoadout.GetConfig());
+			else if (Global.Application.DefaultLoadout.LoadoutNumber.Equals(loadouts[i].LoadoutNumber)) {
+				Logger.Log(Global.Application.DefaultLoadout.LoadoutNumber + " Is A Valid Loadout, Setting It To Load By Default.");
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + Global.Application.DefaultLoadout.LoadoutConfig);
 				LoadoutConfig.LoadConfig();
 				UpdateActiveLoadout(i);
 				break;
@@ -104,7 +100,7 @@ namespace EasyLoadout.Utils {
 
 		private static void UpdateActiveLoadout(int loadout) {
 			//Setting and loading config file
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].GetConfig());
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].LoadoutConfig);
 			LoadoutConfig.LoadConfig();
 
 			//Checking which loadout was selected to be active, then setting all that stuff to be correct and removing checked flag from those that dont match the value passed
