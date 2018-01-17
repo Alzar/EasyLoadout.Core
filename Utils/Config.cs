@@ -18,11 +18,23 @@ namespace EasyLoadout.Utils {
 			return ini;
 		}
 
+		public static string GetConfigFile(int count) {
+			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "EasyLoadout.ini");
+			string tmp = settings.ReadString("MultiLoadout", "Loadout" + count);
+
+			//We're just checking if the string is set to nothing because this is an indicator that it wasn't set in the config file thus something is wrong.
+			if (tmp == "") {
+				Logger.Log("Loadout" + count + " is not a valid config file. Please verify configs are valid and exist in " + Global.Application.ConfigPath + " before reporting this as a potential bug.");
+			}
+
+			return tmp;
+		}
+
 		public static void LoadConfig() {
 			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "EasyLoadout.ini");
 			KeysConverter kc = new KeysConverter();
 
-			string opTemp, opmTemp, glTemp, glmTemp;
+			string opTemp, opmTemp, glTemp, glmTemp, dlnTemp, dlcTemp;
 
 			opTemp = settings.ReadString("Keybinds", "OpenMenu", "F8");
 			opmTemp = settings.ReadString("Keybinds", "OpenMenuModifier", "None");
@@ -34,7 +46,11 @@ namespace EasyLoadout.Utils {
 			Global.Controls.GiveLoadout = (Keys)kc.ConvertFromString(glTemp);
 			Global.Controls.GiveLoadoutModifier = (Keys)kc.ConvertFromString(glmTemp);
 
-			Global.Application.DefaultLoadout = settings.ReadInt16("General", "DefaultLoadout", 1);
+
+			dlnTemp = settings.ReadString("General", "DefaultLoadout", "Loadout1");
+			dlcTemp = settings.ReadString("General", dlnTemp, "Loadout1");
+			Global.Application.DefaultLoadout = new LoadoutData(dlnTemp, dlcTemp);
+			Global.Application.LoadoutCount = settings.ReadInt32("MultiLoadout", "LoadoutCount", 3);
 
 			//Ammo Count
 			Global.LoadoutAmmo.PistolAmmo = settings.ReadInt16("Ammo", "PistolAmmo", 10000);

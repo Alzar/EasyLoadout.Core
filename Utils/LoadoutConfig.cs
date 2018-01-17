@@ -59,7 +59,6 @@ namespace EasyLoadout.Utils {
 
 
 		private static InitializationFile initialiseFile(string filepath) {
-			//InitializationFile is a Rage class.
 			InitializationFile ini = new InitializationFile(filepath);
 			ini.Create();
 			return ini;
@@ -76,15 +75,14 @@ namespace EasyLoadout.Utils {
 		//Pretty useless function that we're calling at initialization so we can load config titles for UI reasons
 		public static void LoadConfigTitle() {
 			InitializationFile settings = initialiseFile(filePath);
-			//Title
-			Global.Loadout.LoadoutTitle = settings.ReadString("Loadout", "LoadoutTitle", "Loadout");
+			Global.Loadout.LoadoutTitle = settings.ReadString("Loadout", "LoadoutTitle", "ERROR IN CONFIG");
 		}
 
 		public static void LoadConfig() {
 			InitializationFile settings = initialiseFile(filePath);
 
 			//Title
-			Global.Loadout.LoadoutTitle = settings.ReadString("Loadout", "LoadoutTitle", "Loadout");
+			Global.Loadout.LoadoutTitle = settings.ReadString("Loadout", "LoadoutTitle", "ERROR IN CONFIG");
 
 			//Pistols
 			Global.Loadout.Pistol = settings.ReadBoolean("Loadout", "Pistol", false);

@@ -22,9 +22,15 @@ namespace EasyLoadout{
 		}
 
 		public void DutyStateChange(bool OnDuty) {
-			if (!Updater.CheckUpdate()) {
+			if (Updater.CheckUpdate() == -1) {
 				Notifier.Notify("Plugin is out of date! (Current Version: ~r~" + Global.Application.CurrentVersion + " ~s~) - (Latest Version: ~g~" + Global.Application.LatestVersion + "~s~) Please update the plugin!");
 				Logger.Log("Plugin is out of date. (Current Version: " + Global.Application.CurrentVersion + ") - (Latest Version: " + Global.Application.LatestVersion + ")");
+			}
+			else if(Updater.CheckUpdate() == -2) {
+				Logger.Log("There was an issue checking plugin versions, the plugin may be out of date!");
+			}
+			else if (Updater.CheckUpdate() == 1) {
+				Logger.Log("Current version of plugin is higher than the version reported on the official GitHub, this could be an error that you may want to report!");
 			}
 			else {
 				Notifier.Notify("Plugin loaded ~g~successfully~s~!");
@@ -33,8 +39,6 @@ namespace EasyLoadout{
 
 			//Loading general config
 			Config.LoadConfig();
-
-
 
 			StartPlugin();
 		}

@@ -12,7 +12,7 @@ namespace EasyLoadout.Utils {
 	internal static class Updater {
 		private static readonly WebClient wc = new WebClient();
 
-		public static bool CheckUpdate() {
+		public static int CheckUpdate() {
 			string response = null;
 
 			try {
@@ -22,9 +22,9 @@ namespace EasyLoadout.Utils {
 				/// TODO
 			}
 
-			//If we get a null respone then the download failed and we just return false
+			//If we get a null respone then the download failed and we just return -2 and inform user of failing the download
 			if (string.IsNullOrWhiteSpace(response)) {
-				return false;
+				return -2;
 			}
 
 			Global.Application.LatestVersion = response;
@@ -32,17 +32,18 @@ namespace EasyLoadout.Utils {
 			Version current = new Version(Global.Application.CurrentVersion);
 			Version latest = new Version(Global.Application.LatestVersion);
 
-			//Current is somehow being reported as higher than latest, this isn't correct so we'll display an error to be safe
+			//This is where we're checking the results
+			//If the plugin is newer than what's being reported then we'll return 1 (This will just log the issue, no notification)
+			//If the plugin is older than what's being reported then we'll return -1(This Logs aswell as displays a notification)
+			//If the plugin is the same version as what's being reported than we'll return 0 (This logs & displays notification that it loaded successfully)
 			if (current.CompareTo(latest) > 0) {
-				return false;
+				return 1;
 			}
-			//Latest is greater than current, return false to warn user that there is an update available
 			else if(current.CompareTo(latest) < 0) {
-				return false;
+				return -1;
 			}
-			//Current version matches latest, return true
 			else {
-				return true;
+				return 0;
 			}
 		}
 	}

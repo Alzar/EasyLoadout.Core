@@ -7,6 +7,7 @@
 
 namespace EasyLoadout.Utils {
 	using System.Windows.Forms;
+	using System.Collections.Generic;
 	using Rage;
 	using Rage.Native;
 	using RAGENativeUI;
@@ -14,66 +15,57 @@ namespace EasyLoadout.Utils {
 	using LSPD_First_Response.Mod.API;
 
 	internal static class Core {
-		private static string[] loadouts;
+		private static List<LoadoutData> loadouts;
+		private static List<UIMenuCheckboxItem> pLoadouts;
 		private static MenuPool pMenuPool;
 		private static UIMenu pLoadoutMenu;
-
-		private static UIMenuCheckboxItem pLoadout1;
-		private static UIMenuCheckboxItem pLoadout2;
-		private static UIMenuCheckboxItem pLoadout3;
 		private static UIMenuItem pGiveLoadout;
 
 		public static void RunPlugin() {
-			loadouts = new string[3];
-			//Declaring all loadouts, right now this is statically set to 3. Hopefully will convert this doing being dynamic and be able to have as many as the user would like
-			loadouts[0] = "Loadout1";
-			loadouts[1] = "Loadout2";
-			loadouts[2] = "Loadout3";
-		
+			loadouts = new List<LoadoutData>();
+			pLoadouts = new List<UIMenuCheckboxItem>();
 
 			//Initial menu setup
 			pMenuPool = new MenuPool();
-			pLoadoutMenu = new UIMenu("EasyLoadout", "Choose your active loadout");
+			pLoadoutMenu = new UIMenu("Easy Loadout", "Choose your active loadout");
 			pMenuPool.Add(pLoadoutMenu);
 
+			//This is where the user-defined loadout count happens at and is initially loaded
+			//We're running through all of the configs and adding them to the loadouts list aswell as adding a menu item for them
+			for (int i = 0; i < Global.Application.LoadoutCount; i++) {
+				loadouts.Add(new LoadoutData("Loadout" + (i + 1), Config.GetConfigFile(i + 1)));
 
-			//Done really badly, but we're setting the items of the menu to have the name that the player sets in the ini file
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0]);
-			LoadoutConfig.LoadConfigTitle();
-			pLoadoutMenu.AddItem(pLoadout1 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[i].GetConfig());
+				LoadoutConfig.LoadConfigTitle();
+				pLoadouts.Add(new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, true, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
+				pLoadoutMenu.AddItem(pLoadouts[i]);
+			}
 
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[1]);
-			LoadoutConfig.LoadConfigTitle();
-			pLoadoutMenu.AddItem(pLoadout2 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
-
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[2]);
-			LoadoutConfig.LoadConfigTitle();
-			pLoadoutMenu.AddItem(pLoadout3 = new UIMenuCheckboxItem(Global.Loadout.LoadoutTitle, false, "Set " + Global.Loadout.LoadoutTitle + " as the active loadout."));
 			pLoadoutMenu.AddItem(pGiveLoadout = new UIMenuItem("Give Loadout"));
-
 			pLoadoutMenu.RefreshIndex();
-
 			pLoadoutMenu.OnItemSelect += OnItemSelect;
 			pLoadoutMenu.OnCheckboxChange += OnCheckboxChange;
 
-
-			//Some very basic logic checking for default loadout that we can use right now
-			//Once I add user-defined amounts this will need to be changed
-			if (Global.Application.DefaultLoadout > 3) {
-				Global.Application.DefaultLoadout = 3;
-				Notifier.Notify("~r~[ERROR] ~s~There was an error with your defined default loadout, setting to Loadout 3 as default.");
-				Logger.Log("Your default loadout was set higher than 3, this is invalid, setting to default loadout 3");
-			}
-			else if (Global.Application.DefaultLoadout < 1) {
-				Global.Application.DefaultLoadout = 1;
-				Notifier.Notify("~r~[ERROR] ~s~There was an error with your defined default loadout, setting to Loadout 1 as default.");
-				Logger.Log("Your default loadout was set lower than 1, this is invalid, setting to default loadout 1");
+			for (int i = 0; i < Global.Application.LoadoutCount; i++) {
+				Logger.Log(loadouts[i].GetNumber() + "	" + loadouts[i].GetConfig());
 			}
 
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[Global.Application.DefaultLoadout - 1]);
-			LoadoutConfig.LoadConfig();
-			UpdateActiveLoadout(Global.Application.DefaultLoadout);
-
+			//Error checking for default loadout, this should allow us to ensure that if an invalid loadout is chosen then it'll default to the first loadout config
+			for (int i = 0; i <= Global.Application.LoadoutCount; i++) {
+			if (i == Global.Application.LoadoutCount) {
+				Logger.Log(Global.Application.DefaultLoadout.GetNumber() + " Is Not A Valid Loadout. Defaulting to " + loadouts[0].GetNumber() + " as default.");
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0].GetConfig());
+				LoadoutConfig.LoadConfig();
+				UpdateActiveLoadout(0);
+			}
+			else if (Global.Application.DefaultLoadout.GetNumber().Equals(loadouts[i].GetNumber())) {
+				Logger.Log(Global.Application.DefaultLoadout.GetNumber() + " Is A Valid Loadout, Setting It To Load By Default.");
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + Global.Application.DefaultLoadout.GetConfig());
+				LoadoutConfig.LoadConfig();
+				UpdateActiveLoadout(i);
+				break;
+			}
+			}
 
 			//Initial loadout giving for when player goes on duty
 			GiveLoadout();
@@ -100,17 +92,10 @@ namespace EasyLoadout.Utils {
 			//Ensuring UI that had the update is ours..
 			if (sender == pLoadoutMenu) {
 				//Then we're checking the checkboxes were updated...
-				if (checkbox == pLoadout1) {
-					UpdateActiveLoadout(1);
-				}
-				else if (checkbox == pLoadout2) {
-					UpdateActiveLoadout(2);
-				}
-				else if (checkbox == pLoadout3) {
-					UpdateActiveLoadout(3);
-				}
-				else {
-					return;
+				for (int i = 0; i < Global.Application.LoadoutCount; i++) {
+					if (checkbox == pLoadouts[i]) {
+						UpdateActiveLoadout(i);
+					}
 				}
 			}
 			else
@@ -119,32 +104,20 @@ namespace EasyLoadout.Utils {
 
 		private static void UpdateActiveLoadout(int loadout) {
 			//Setting and loading config file
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout - 1)]);
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].GetConfig());
 			LoadoutConfig.LoadConfig();
 
-			//This is all pretty much visual stuff. We're just updating UI menu text and description aswell as ensuring correct boxes are checked/unchecked
-			switch (loadout) {
-				case 1:
-					pLoadout1.Checked = true;
-					pLoadout2.Checked = false;
-					pLoadout3.Checked = false;
-					pLoadout1.Text = Global.Loadout.LoadoutTitle;
-					pLoadout1.Description = "Set " + Global.Loadout.LoadoutTitle + " as the active loadout.";
-					break;
-				case 2:
-					pLoadout2.Checked = true;
-					pLoadout1.Checked = false;
-					pLoadout3.Checked = false;
-					pLoadout2.Text = Global.Loadout.LoadoutTitle;
-					pLoadout2.Description = "Set " + Global.Loadout.LoadoutTitle + " as the active loadout.";
-					break;
-				case 3:
-					pLoadout3.Checked = true;
-					pLoadout1.Checked = false;
-					pLoadout2.Checked = false;
-					pLoadout3.Text = Global.Loadout.LoadoutTitle;
-					pLoadout3.Description = "Set " + Global.Loadout.LoadoutTitle + " as the active loadout.";
-					break;
+			//Checking which loadout was selected to be active, then setting all that stuff to be correct and removing checked flag from those that dont match the value passed
+			for(int i = 0; i < Global.Application.LoadoutCount; i++) {
+				if(i == loadout) {
+					Logger.Log("Settings Loadout #" + (loadout + 1) + " as Active Loadout.");
+					pLoadouts[i].Checked = true;
+					pLoadouts[i].Text = Global.Loadout.LoadoutTitle;
+					pLoadouts[i].Description = "Set " + Global.Loadout.LoadoutTitle + " as the active loadout.";
+				}
+				else {
+					pLoadouts[i].Checked = false;
+				}
 			}
 
 			//Sending notification of active loadout change
