@@ -49,7 +49,7 @@ namespace EasyLoadout{
 		}
 
 		public override void Finally() {
-			Logger.Log("Plugin unloaded successfully");
+			Logger.DebugLog("Plugin unloaded successfully");
 		}
 	}
 }

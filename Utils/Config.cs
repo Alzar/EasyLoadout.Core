@@ -12,7 +12,6 @@ namespace EasyLoadout.Utils {
 
 	internal static class Config {
 		private static InitializationFile initialiseFile(string filepath) {
-			//InitializationFile is a Rage class.
 			InitializationFile ini = new InitializationFile(filepath);
 			ini.Create();
 			return ini;
@@ -32,6 +31,10 @@ namespace EasyLoadout.Utils {
 
 		public static void LoadConfig() {
 			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "EasyLoadout.ini");
+
+			Global.Application.DebugLogging = LoadoutConfig.ToBoolean(settings.ReadString("General", "DebugLogging", "false"));
+			Logger.DebugLog("General Config Loading Started.");
+
 			KeysConverter kc = new KeysConverter();
 
 			string opTemp, opmTemp, glTemp, glmTemp, dlnTemp, dlcTemp;
@@ -60,6 +63,8 @@ namespace EasyLoadout.Utils {
 			Global.LoadoutAmmo.SniperAmmo = settings.ReadInt16("Ammo", "SniperAmmo", 10000);
 			Global.LoadoutAmmo.HeavyAmmo = settings.ReadInt16("Ammo", "HeavyAmmo", 10000);
 			Global.LoadoutAmmo.ThrowableCount = settings.ReadInt16("Ammo", "ThrowableCount", 10000);
+
+			Logger.DebugLog("General Config Loading Finished.");
 		}
 	}
 }

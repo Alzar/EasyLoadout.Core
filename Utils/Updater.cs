@@ -16,6 +16,7 @@ namespace EasyLoadout.Utils {
 			string response = null;
 
 			try {
+				Logger.DebugLog("Fetching latest plugin version from GitHub");
 				response = wc.DownloadStringTaskAsync(new Uri("https://raw.githubusercontent.com/sr7066/EasyLoadout/master/latest.txt")).Result;
 			}
 			catch (Exception) {

@@ -13,8 +13,8 @@ namespace EasyLoadout.Utils {
 		//Simple log line
 		internal static void Notify(string body) {
 			string notice = string.Format("~p~[{0}]~s~: {1}", NotificationPrefix, body);
-
 			Game.DisplayNotification(notice);
+			Logger.DebugLog("Notification Sent.");
 		}
 	}
 }

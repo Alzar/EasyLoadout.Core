@@ -15,6 +15,7 @@ namespace EasyLoadout.Utils {
 			public static string CurrentVersion { get; set; }
 			public static string LatestVersion { get; set; }
 			public static LoadoutData DefaultLoadout { get; set; }
+			public static bool DebugLogging { get; set; }
 			public static string ConfigPath { get; set; }
 			public static int LoadoutCount { get; set; }
 		}

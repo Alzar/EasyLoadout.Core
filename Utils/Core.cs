@@ -22,6 +22,7 @@ namespace EasyLoadout.Utils {
 		private static UIMenuItem pGiveLoadout;
 
 		public static void RunPlugin() {
+			Logger.DebugLog("Core Plugin Function Started");
 			loadouts = new List<LoadoutData>();
 			pLoadouts = new List<UIMenuCheckboxItem>();
 
@@ -48,35 +49,35 @@ namespace EasyLoadout.Utils {
 
 			//Error checking for default loadout, this should allow us to ensure that if an invalid loadout is chosen then it'll default to the first loadout config
 			for (int i = 0; i <= Global.Application.LoadoutCount; i++) {
-			if (i == Global.Application.LoadoutCount) {
-				Logger.Log(Global.Application.DefaultLoadout.LoadoutNumber + " Is Not A Valid Loadout. Defaulting to " + loadouts[0].LoadoutNumber + " as default.");
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0].LoadoutConfig);
-				LoadoutConfig.LoadConfig();
-				UpdateActiveLoadout(0);
-			}
-			else if (Global.Application.DefaultLoadout.LoadoutNumber.Equals(loadouts[i].LoadoutNumber)) {
-				Logger.Log(Global.Application.DefaultLoadout.LoadoutNumber + " Is A Valid Loadout, Setting It To Load By Default.");
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + Global.Application.DefaultLoadout.LoadoutConfig);
-				LoadoutConfig.LoadConfig();
-				UpdateActiveLoadout(i);
-				break;
-			}
+				if (i == Global.Application.LoadoutCount) {
+					Logger.DebugLog(Global.Application.DefaultLoadout.LoadoutNumber + " Is Not A Valid Loadout. Defaulting to " + loadouts[0].LoadoutNumber + " as default.");
+					LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[0].LoadoutConfig);
+					LoadoutConfig.LoadConfig();
+					UpdateActiveLoadout(0);
+				}
+				else if (Global.Application.DefaultLoadout.LoadoutNumber.Equals(loadouts[i].LoadoutNumber)) {
+					Logger.DebugLog(Global.Application.DefaultLoadout.LoadoutNumber + " Is A Valid Loadout, Setting It To Load By Default.");
+					LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + Global.Application.DefaultLoadout.LoadoutConfig);
+					LoadoutConfig.LoadConfig();
+					UpdateActiveLoadout(i);
+					break;
+				}
 			}
 
 			//Initial loadout giving for when player goes on duty
 			GiveLoadout();
 
-
 			//Game loop
 			while (true) {
 				GameFiber.Yield();
-
 				//Checking if keybinds for opening menu is pressed. Currently it doesn't check if any other menu is open, so it can overlap with other RageNativeUI menus.
 				if (Game.IsKeyDownRightNow(Global.Controls.OpenMenuModifier) && Game.IsKeyDown(Global.Controls.OpenMenu) || Global.Controls.OpenMenuModifier == Keys.None && Game.IsKeyDown(Global.Controls.OpenMenu)) {
+					Logger.DebugLog("Menu button pressed, toggling menu status");
 					pLoadoutMenu.Visible = !pLoadoutMenu.Visible;
 				}
 
 				if (Game.IsKeyDownRightNow(Global.Controls.GiveLoadoutModifier) && Game.IsKeyDown(Global.Controls.GiveLoadout) || Global.Controls.GiveLoadoutModifier == Keys.None && Game.IsKeyDown(Global.Controls.GiveLoadout)) {
+					Logger.DebugLog("Quick Give Bind Pressed, Giving Loadout");
 					GiveLoadout();
 				}
 
@@ -99,30 +100,38 @@ namespace EasyLoadout.Utils {
 		}
 
 		private static void UpdateActiveLoadout(int loadout) {
-			//Setting and loading config file
-			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].LoadoutConfig);
-			LoadoutConfig.LoadConfig();
-
-			//Checking which loadout was selected to be active, then setting all that stuff to be correct and removing checked flag from those that dont match the value passed
-			for(int i = 0; i < Global.Application.LoadoutCount; i++) {
-				if(i == loadout) {
-					Logger.Log("Settings Loadout #" + (loadout + 1) + " as Active Loadout.");
+			//Quick logic to uncheck non-active loadouts
+			for (int i = 0; i < Global.Application.LoadoutCount; i++)
+				if (i == loadout)
 					pLoadouts[i].Checked = true;
-					pLoadouts[i].Text = Global.Loadout.LoadoutTitle;
-					pLoadouts[i].Description = "Set " + Global.Loadout.LoadoutTitle + " as the active loadout.";
-				}
-				else {
+				else
 					pLoadouts[i].Checked = false;
-				}
-			}
 
-			//Sending notification of active loadout change
-			Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+			//Checking to see if this loadout menu element is already active, if it is that means this is the active loadout and we don't have to do anything
+			if (!pLoadouts[loadout].Checked) {
+				Logger.DebugLog("Starting Active Loadout Change.");
+
+				//Setting and loading config file
+				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].LoadoutConfig);
+				LoadoutConfig.LoadConfig();
+
+				Logger.DebugLog("Setting Loadout #" + (loadout + 1) + " as Active Loadout.");
+				Logger.DebugLog("Loadout Title: " + Global.Loadout.LoadoutTitle + " FilePath: " + LoadoutConfig.GetConfigPath());
+				pLoadouts[loadout].Checked = true;
+				pLoadouts[loadout].Text = Global.Loadout.LoadoutTitle;
+
+				//Sending notification of active loadout change
+				Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+				Logger.DebugLog("Active Loadout Changed");
+			}
+			else
+				Logger.DebugLog(Global.Loadout.LoadoutTitle + " was already the active loadout, don't need to do anything.");
 		}
 
 		public static void OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index) {
 			if (sender == pLoadoutMenu) {
 				if(selectedItem == pGiveLoadout) {
+					Logger.DebugLog("Give Loadout Menu Option Selected, Giving Loadout.");
 					GiveLoadout();
 				}
 			}
@@ -134,10 +143,10 @@ namespace EasyLoadout.Utils {
 		private static void GiveLoadout() {
 			Ped playerPed = Game.LocalPlayer.Character;
 
-			Logger.Log("Removing Weapons...");
+			Logger.DebugLog("Removing Weapons.");
 			Rage.Native.NativeFunction.Natives.REMOVE_ALL_PED_WEAPONS(playerPed, true);
 
-			Logger.Log("Processing Loadout...");
+			Logger.DebugLog("Processing Loadout.");
 
 			//Pistols
 			if (Global.Loadout.Pistol) {
@@ -588,7 +597,7 @@ namespace EasyLoadout.Utils {
 				playerPed.Armor = 100;
 			}
 
-			Logger.Log("Loadout Successfully Processed...");
+			Logger.DebugLog("Loadout Successfully Processed.");
 			Notifier.Notify("(Active: ~g~" + Global.Loadout.LoadoutTitle + "~s~) Loadout Cleared ~g~Successfully~s~!");
 		}
 	}
