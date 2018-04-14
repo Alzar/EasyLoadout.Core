@@ -14,7 +14,7 @@ namespace EasyLoadout.Utils {
 	using RAGENativeUI.Elements;
 	using LSPD_First_Response.Mod.API;
 
-	internal static class Core {
+	public static class Core {
 		private static List<LoadoutData> loadouts;
 		private static List<UIMenuCheckboxItem> pLoadouts;
 		private static MenuPool pMenuPool;
@@ -107,25 +107,20 @@ namespace EasyLoadout.Utils {
 				else
 					pLoadouts[i].Checked = false;
 
-			//Checking to see if this loadout menu element is already active, if it is that means this is the active loadout and we don't have to do anything
-			if (!pLoadouts[loadout].Checked) {
-				Logger.DebugLog("Starting Active Loadout Change.");
+			Logger.DebugLog("Starting Active Loadout Change.");
 
-				//Setting and loading config file
-				LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].LoadoutConfig);
-				LoadoutConfig.LoadConfig();
+			//Setting and loading config file
+			LoadoutConfig.SetConfigPath(Global.Application.ConfigPath + loadouts[(loadout)].LoadoutConfig);
+			LoadoutConfig.LoadConfig();
 
-				Logger.DebugLog("Setting Loadout #" + (loadout + 1) + " as Active Loadout.");
-				Logger.DebugLog("Loadout Title: " + Global.Loadout.LoadoutTitle + " FilePath: " + LoadoutConfig.GetConfigPath());
-				pLoadouts[loadout].Checked = true;
-				pLoadouts[loadout].Text = Global.Loadout.LoadoutTitle;
+			Logger.DebugLog("Setting Loadout #" + (loadout + 1) + " as Active Loadout.");
+			Logger.DebugLog("Loadout Title: " + Global.Loadout.LoadoutTitle + " FilePath: " + LoadoutConfig.GetConfigPath());
+			pLoadouts[loadout].Checked = true;
+			pLoadouts[loadout].Text = Global.Loadout.LoadoutTitle;
 
-				//Sending notification of active loadout change
-				Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
-				Logger.DebugLog("Active Loadout Changed");
-			}
-			else
-				Logger.DebugLog(Global.Loadout.LoadoutTitle + " was already the active loadout, don't need to do anything.");
+			//Sending notification of active loadout change
+			Notifier.Notify(Global.Loadout.LoadoutTitle + " set as active loadout ~g~Successfully~s~!");
+			Logger.DebugLog("Active Loadout Changed");
 		}
 
 		public static void OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index) {
@@ -140,7 +135,7 @@ namespace EasyLoadout.Utils {
 			}
 		}
 
-		private static void GiveLoadout() {
+		public static void GiveLoadout() {
 			Ped playerPed = Game.LocalPlayer.Character;
 
 			Logger.DebugLog("Removing Weapons.");
