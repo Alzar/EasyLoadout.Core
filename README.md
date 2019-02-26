@@ -1,12 +1,16 @@
-# Easy Loadout
+# Easy Loadout Core
 
-LSPDFR Plugin that adds the ability to load a certain loadout when you go on duty aswell as having a button to re-give it to you at any time.
+Easy Loadout is an extensive loadout mod for Grand Theft Auto 5. It is written in C# using Rage Plugin Hook. This core library provides the supporting functions for the Easy Loadout RPH plugin & the LSPDFR plugin.
 
 ## Requirements
 
 * Rage Plugin Hook (Developed and tested on RPH v0.62.1216.14731)
 * LSPD First Response (Developed and tested on LSPDFR v0.3.1)
 * RageNativeUI (Developed and tested on RageNatuveUI v1.6.3)
+
+## Plugins
+* RPH: https://github.com/Alzar/EasyLoadout
+* LSPDFR: https://github.com/Alzar/EasyLoadout.LSPDFR
 
 #### LSPDFR Release
 
