@@ -1,5 +1,5 @@
-﻿namespace EasyLoadout.Utils {
-	class LoadoutData {
+﻿namespace EasyLoadout.Core.Utils {
+	public class LoadoutData {
 		public string LoadoutNumber { get; set; }
 		public string LoadoutConfig { get; set; }
 

@@ -6,11 +6,11 @@
  */
 
 
-namespace EasyLoadout.Utils {
+namespace EasyLoadout.Core.Utils {
 	using System.Windows.Forms;
 	using Rage;
 
-	static class LoadoutConfig {
+	public static class LoadoutConfig {
 		private static string filePath;
 		private static string[] AssaultRifleMagazines = new string[] { "COMPONENT_ASSAULTRIFLE_CLIP_01", "COMPONENT_ASSAULTRIFLE_CLIP_02", "COMPONENT_ASSAULTRIFLE_CLIP_03" };
 		private static string[] CarbineRifleMagazines = new string[] { "COMPONENT_CARBINERIFLE_CLIP_01", "COMPONENT_CARBINERIFLE_CLIP_02", "COMPONENT_CARBINERIFLE_CLIP_03" };

@@ -5,29 +5,28 @@
  *	Released On: GitHub & LSPDFR
  */
 
-namespace EasyLoadout.Utils {
+namespace EasyLoadout.Core.Utils {
 	using System.Media;
 	using System.Windows.Forms;
 	using Rage;
 
-	internal static class Global {
-		internal static class Application {
-			public static string CurrentVersion { get; set; }
-			public static string LatestVersion { get; set; }
+	public static class Global {
+		public static class Application {
+			public static string Tag { get; set; }
 			public static LoadoutData DefaultLoadout { get; set; }
 			public static bool DebugLogging { get; set; }
 			public static string ConfigPath { get; set; }
 			public static int LoadoutCount { get; set; }
 		}
 
-		internal static class Controls {
+		public static class Controls {
 			public static Keys OpenMenu { get; set; }
 			public static Keys OpenMenuModifier { get; set; }
 			public static Keys GiveLoadout { get; set; }
 			public static Keys GiveLoadoutModifier { get; set; }
 		}
 
-		internal static class LoadoutAmmo {
+		public static class LoadoutAmmo {
 			public static short PistolAmmo { get; set; }
 			public static short MGAmmo { get; set; }
 			public static short ShotgunAmmo { get; set; }
@@ -37,7 +36,7 @@ namespace EasyLoadout.Utils {
 			public static short ThrowableCount { get; set; }
 		}
 
-		internal static class Loadout {
+		public static class Loadout {
 			//Loadout Title
 			public static string LoadoutTitle { get; set; }
 
