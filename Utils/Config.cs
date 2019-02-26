@@ -6,11 +6,11 @@
  */
 
 
-namespace EasyLoadout.Utils {
+namespace EasyLoadout.Core.Utils {
 	using System.Windows.Forms;
 	using Rage;
 
-	internal static class Config {
+	public static class Config {
 		private static InitializationFile initialiseFile(string filepath) {
 			InitializationFile ini = new InitializationFile(filepath);
 			ini.Create();
@@ -29,7 +29,7 @@ namespace EasyLoadout.Utils {
 			return tmp;
 		}
 
-		public static void LoadConfig() {
+		public static void LoadConfig(bool isLSPDFR, bool OnDuty) {
 			InitializationFile settings = initialiseFile(Global.Application.ConfigPath + "EasyLoadout.ini");
 
 			Global.Application.DebugLogging = LoadoutConfig.ToBoolean(settings.ReadString("General", "DebugLogging", "false"));
@@ -50,8 +50,25 @@ namespace EasyLoadout.Utils {
 			Global.Controls.GiveLoadoutModifier = (Keys)kc.ConvertFromString(glmTemp);
 
 
-			dlnTemp = settings.ReadString("General", "DefaultLoadout", "Loadout1");
-			dlcTemp = settings.ReadString("General", dlnTemp, "Loadout1");
+			if(isLSPDFR) {
+				if(OnDuty) {
+					dlnTemp = settings.ReadString("LSPDFR", "OnDuty", "Loadout1");
+					dlcTemp = settings.ReadString("LSPDFR", dlnTemp, "Loadout1");
+				}
+				else {
+					dlnTemp = settings.ReadString("LSPDFR", "OffDuty", "Loadout1");
+					dlcTemp = settings.ReadString("LSPDFR", dlnTemp, "Loadout1");
+				}
+
+				if (dlnTemp.Equals("DefaultLoadout")) {
+					dlnTemp = settings.ReadString("General", "DefaultLoadout", "Loadout1");
+					dlcTemp = settings.ReadString("General", dlnTemp, "Loadout1");
+				}
+			}
+			else {
+				dlnTemp = settings.ReadString("General", "DefaultLoadout", "Loadout1");
+				dlcTemp = settings.ReadString("General", dlnTemp, "Loadout1");
+			}
 			Global.Application.DefaultLoadout = new LoadoutData(dlnTemp, dlcTemp);
 			Global.Application.LoadoutCount = settings.ReadInt32("MultiLoadout", "LoadoutCount", 3);
 
