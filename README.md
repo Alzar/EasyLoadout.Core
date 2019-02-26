@@ -4,8 +4,8 @@ Easy Loadout is an extensive loadout mod for Grand Theft Auto 5. It is written i
 
 ## Requirements
 
-* Rage Plugin Hook (Developed and tested on RPH v0.62.1216.14731)
-* LSPD First Response (Developed and tested on LSPDFR v0.3.1)
+* Rage Plugin Hook (Developed and tested on RPH v0.64.1234.15464)
+* LSPD First Response (Developed and tested on LSPDFR v0.4)
 * RageNativeUI (Developed and tested on RageNatuveUI v1.6.3)
 
 ## Plugins
